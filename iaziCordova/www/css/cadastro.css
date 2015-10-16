@@ -1,0 +1,64 @@
+﻿.form-row {
+  margin: 4px;
+}
+
+.form-gps{
+    width:100%;
+    display:inline-block;
+    margin-left:auto;
+    text-align:right;
+    margin-top: 6px;
+}
+
+
+.form-map{
+    width:100%;
+    display:inline-block;
+    margin-left:auto;
+    text-align:right;
+    margin-top: 6px;
+}
+
+.width-full {
+  width: 100%;
+}
+
+.width-half {
+  width: 48%;
+}
+
+.lucent {
+  opacity: 0.4;
+}
+
+.title-center {
+    background-color: #ff5a54;
+    height: 50px;
+    padding-top: 2%;
+    text-align: center;
+    color: white;
+}
+
+
+.note {
+  font-size: 15px;
+  opacity: 0.4;
+  display: inline-block;
+  padding-top: 6px;
+}
+
+.vspc {
+  margin-top: 20px;
+}
+
+.formarea {
+  width: 90%;
+  margin: 30px auto 0 auto;
+}
+
+input[type=text],
+input[type=password] {
+  height: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

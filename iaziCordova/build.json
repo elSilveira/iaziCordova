@@ -1,0 +1,11 @@
+{
+  "android": {
+    "release": {
+      "keystore": "elsilveira.keystore",
+      "storePassword": "awsxxpsd",
+      "alias": "solobots",
+      "password": "awsxxpsd",
+      "keystoreType": ""
+    }
+  }
+}

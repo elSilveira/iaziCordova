@@ -1,0 +1,62 @@
+﻿body{
+    font-family: myriad pro;
+    background-color: #ff5a64;
+}
+
+input[type=email], input[type=password] {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  outline: none;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  text-align:center;
+}
+
+.login-button:hover{
+    cursor: pointer;
+    background-color: #ff5a54;
+} 
+
+.facebook-button:hover{
+    cursor: pointer;
+    background-color: #3B6080;
+}
+
+.login-button  {
+  text-align: center;
+  width: 80%;
+  margin: 10px auto 0;
+ height: 40px;
+  border: white solid 2px;
+}
+
+
+.facebook-button {
+  text-align: center;
+  width: 80%;
+  margin: 15px auto 0;
+  height: 40px;
+  background-color: #3B5998;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    position: relative;
+    top: 25%;
+}
+
+.forgot-password {
+  display: block;
+  margin: 8px auto 0 auto;
+  font-size: 14px;
+}
+
+.note {
+  width: 100%;
+  font-size: 13px;
+  text-align: center;
+  opacity: 0.6;
+  display: inline-block;
+}
