@@ -7,26 +7,16 @@
     <script src="lib/angular/angular.js"></script>
     <script src="lib/onsen/js/onsenui.js"></script>
     <script type="text/javascript" src="lib/jquery/jquery-1.9.1.min.js"></script>
+    <script src="scripts/home.js"></script>
 
     <script>ons.bootstrap();</script>
+    <script>
+        $(document).ready(
+            callTeste()
+        );
+    </script>
 </head>
 <body>
-    <ons-page id="htmlhome" style="background-color:#ff5a54">
-
-        <ons-tabbar id="tbMenu" hide-tabs="true">
-            <ons-tab active="true" id="btnHome">
-                <ons-icon icon="ion-home"></ons-icon>
-                <span style="font-size: 14px">Home</span>
-            </ons-tab>
-            <ons-tab page="cadastro.html">
-                <ons-icon icon="ion-star"></ons-icon>
-                <span style="font-size: 14px">Favorites</span>
-            </ons-tab>
-            <ons-tab page="home.html">
-                <ons-icon icon="ion-gear-a"></ons-icon>
-                <span style="font-size: 14px">Settings</span>
-            </ons-tab>
-        </ons-tabbar>
-    </ons-page>
+    <div id="divTeste"></div>
 </body>
 </html>

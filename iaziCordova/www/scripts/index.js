@@ -28,7 +28,7 @@
 
 
 function testarCliente() {
-    var iaziUsuario = localStorage.getItem("iaziUserx");
+    var iaziUsuario = localStorage.getItem("iaziUser");
     if (iaziUsuario != null) {
         window.open("home.html", "_self");
     } else {

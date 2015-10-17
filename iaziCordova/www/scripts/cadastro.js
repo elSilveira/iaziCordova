@@ -126,15 +126,26 @@ function popUps(msg, location) {
 }
 
 function getToken(password, userName) {
+    var loginData = {
+        grant_type: "password",
+        username: userName,
+        password: password
+    };
+
     $.ajax({
         type: 'POST',
         url: 'http://localhost:58203/token',
-        contentType: "application/json",
-        data: JSON.stringify({grant_type: "password", password: password, username: userName })
+        contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+        data: loginData
     }).success(function (data) {
-        var iaziUser = localStorage.getItem("iaziUser");
-        iaziUser["tokenUsuario"] = data;
-        localStorage.setItem("iaziUser", iaziUser);
+        var iaziUser = JSON.parse(localStorage.getItem("iaziUser"));
+        iaziUser = {
+            "idUsuario": iaziUser.idUsuario,
+            "roleUsuario": iaziUser.roleUsuario,
+            "tokenUsuario": data
+        }
+        localStorage.setItem('iaziUser', JSON.stringify(iaziUser));
+        window.open("Home.html", "_self");
     })
 }
 
@@ -165,7 +176,7 @@ function cadastrarCliente() {
                 "roleUsuario": data.roleUsuario,
                 "tokenUsuario": 0
             }
-            localStorage.setItem("iaziUser", iaziUser);
+            localStorage.setItem('iaziUser', JSON.stringify(iaziUser));
             getToken(password, cliente.emailCliente);
         }).error(function () {
             alert("Erro ao cadastrar");
