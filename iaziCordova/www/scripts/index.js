@@ -30,7 +30,7 @@
 function testarCliente() {
     var iaziUsuario = localStorage.getItem("iaziUser");
     if (iaziUsuario != null) {
-        window.open("home.html", "_self");
+        getToken();
     } else {
         addButtons();
     }

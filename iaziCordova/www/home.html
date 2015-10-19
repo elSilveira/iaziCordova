@@ -8,6 +8,8 @@
     <script src="lib/onsen/js/onsenui.js"></script>
     <script type="text/javascript" src="lib/jquery/jquery-1.9.1.min.js"></script>
     <script src="scripts/home.js"></script>
+    <script src="scripts/cadastro.js"></script>
+    <script src="scripts//servicos.js"></script>
 
     <script>ons.bootstrap();</script>
     <script>
@@ -17,6 +19,19 @@
     </script>
 </head>
 <body>
-    <div id="divTeste"></div>
+    <ons-tabbar>
+        <ons-tab page="pages/servicos.html" active="true">
+            <ons-icon icon="ion-home"></ons-icon>
+            <span style="font-size: 14px">Home</span>
+        </ons-tab>
+        <ons-tab page="pages/agenda.html">
+            <ons-icon icon="ion-star"></ons-icon>
+            <span style="font-size: 14px">Favorites</span>
+        </ons-tab>
+        <ons-tab page="pages/configuracoes.html">
+            <ons-icon icon="ion-gear-a"></ons-icon>
+            <span style="font-size: 14px">Settings</span>
+        </ons-tab>
+    </ons-tabbar>
 </body>
 </html>

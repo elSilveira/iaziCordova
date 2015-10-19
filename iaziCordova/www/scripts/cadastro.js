@@ -125,12 +125,13 @@ function popUps(msg, location) {
         });
 }
 
-function getToken(password, userName) {
+function getToken() {
+    var userAtual = JSON.parse(localStorage.getItem("iaziUser"));
     var loginData = {
         grant_type: "password",
-        username: userName,
-        password: password
-    };
+        username: userAtual.idUsuario,
+        password: userAtual.passUsuario
+    }
 
     $.ajax({
         type: 'POST',
@@ -138,13 +139,13 @@ function getToken(password, userName) {
         contentType: 'application/x-www-form-urlencoded;charset=utf-8',
         data: loginData
     }).success(function (data) {
-        var iaziUser = JSON.parse(localStorage.getItem("iaziUser"));
-        iaziUser = {
-            "idUsuario": iaziUser.idUsuario,
-            "roleUsuario": iaziUser.roleUsuario,
+        userAtual = {
+            "idUsuario": userAtual.idUsuario,
+            "roleUsuario": userAtual.roleUsuario,
+            "passUsuario": userAtual.passUsuario,
             "tokenUsuario": data
         }
-        localStorage.setItem('iaziUser', JSON.stringify(iaziUser));
+        localStorage.setItem('iaziUser', JSON.stringify(userAtual));
         window.open("Home.html", "_self");
     })
 }
@@ -174,10 +175,10 @@ function cadastrarCliente() {
             var iaziUser = {
                 "idUsuario": data.idUsuario,
                 "roleUsuario": data.roleUsuario,
-                "tokenUsuario": 0
+                "passUsuario": data.passRetorno
             }
             localStorage.setItem('iaziUser', JSON.stringify(iaziUser));
-            getToken(password, cliente.emailCliente);
+            getToken();
         }).error(function () {
             alert("Erro ao cadastrar");
         })
