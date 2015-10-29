@@ -34,16 +34,13 @@ function exibirCategorias() {
             $("#listCategorias").append(item);
         //Adiciona função ao item da lista
         $("#cat" + v.nomeCategoria.replace(/ /g, '')).click(function () {
-            alert("" + v.nomeCategoria);
+            nextPage(1, v.idCategoria) // 1 = Categorias
         }).on("mouseover", function () {
             $(this).css("backgroud-color", "#"+retornaCorOver(i));
         });
     })
 }
 
-function exibirEmpresas(){
-
-}
 
 
 function getUserInfo() {

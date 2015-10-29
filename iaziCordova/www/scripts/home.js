@@ -7,6 +7,7 @@
     myNavigator.pushPage(page, options);
 }
 
+
 function Page1Controller($scope, Data) { 
     $scope.items = JSON.parse(localStorage.getItem('iaziCategorias')); 
 

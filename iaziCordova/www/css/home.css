@@ -1,3 +1,6 @@
-﻿li:hover{
-
+﻿.btnHome{
+     cursor: pointer;
+}
+.btnHome:hover{
+    background-color: #efefef;
 }
