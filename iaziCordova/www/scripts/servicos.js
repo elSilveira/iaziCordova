@@ -24,14 +24,14 @@ function exibirCategorias() {
     var cat = JSON.parse(localStorage.getItem('iaziCategorias'));
     $.each(cat, function (i, v) {
         var item =
-            "<li style='width: 100%; background-color:#" + retornaCor(i); + "' margin-top: 25%; id='cat" + v.nomeCategoria.replace(/ /g, '') + "'>" +
+            "<li style='width: 100%; background-color:#" + retornaCor(i) + "' margin-top: 25%; id='cat" + v.nomeCategoria.replace(/ /g, '') + "'>" +
             "<table style='color: #FFFFFF; display:inline-table; width: 100%;'  ><tr>" +
                "<td style='height:" + $(document).height() * 0.20 + "px; width:25%' align='center'>" +
                     "<img src='images/" + v.iconeCategoria + ".png' width='45' />" +
                     "</td><td style='font-size: 20px;'>" +
                     v.nomeCategoria +
                "</td></tr></table></li>";
-        $("#listCategorias").append(item);
+            $("#listCategorias").append(item);
         //Adiciona função ao item da lista
         $("#cat" + v.nomeCategoria.replace(/ /g, '')).click(function () {
             alert("" + v.nomeCategoria);
@@ -39,6 +39,10 @@ function exibirCategorias() {
             $(this).css("backgroud-color", "#"+retornaCorOver(i));
         });
     })
+}
+
+function exibirEmpresas(){
+
 }
 
 
