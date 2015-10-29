@@ -146,7 +146,7 @@ function getToken() {
             "tokenUsuario": data
         }
         localStorage.setItem('iaziUser', JSON.stringify(userAtual));
-        window.open("Home.html", "_self");
+        window.open("../home.html", "_self");
     })
 }
 

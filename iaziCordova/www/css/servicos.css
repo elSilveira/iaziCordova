@@ -1,2 +1,5 @@
-﻿body {
-}
+﻿input[type="text"]:focus {
+    border: none;
+    background-color: aliceblue;
+    /*background-color: blue;*/
+  }

@@ -1,6 +1,19 @@
-﻿function callTeste() {
+﻿function callPage(page) {
 
-    var user = JSON.parse(localStorage.getItem("iaziUser"));
-
-    console.log(user.tokenUsuario.token_type);
+    var options = {
+        animation: 'slide', // What animation to use
+        onTransitionEnd: function () { } // Called when finishing transition animation
+    };
+    myNavigator.pushPage(page, options);
 }
+
+function Page1Controller($scope, Data) { 
+    $scope.items = JSON.parse(localStorage.getItem('iaziCategorias')); 
+
+    $scope.showDetail = function (index) { // 3
+        var selectedItem = Data.items[index];
+        Data.selectedItem = selectedItem;
+        $scope.ons.navigator.pushPage('index.html', selectedItem.title);
+    }
+}
+
