@@ -1,8 +1,8 @@
-﻿function getServicos() {
+﻿function getCategorias() {
     if (usuario == null) getUserInfo();
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:58203/servicos/listCategoria',
+        url: usuario.iaziUrl+'servicos/listCategoria',
         contentType: 'application/json',
         data: JSON.stringify({ IdUsuario: usuario.idusuario }),
         headers: {

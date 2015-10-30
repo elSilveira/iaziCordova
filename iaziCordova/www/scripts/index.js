@@ -27,10 +27,18 @@
 });
 
 //Url do sistema
-var url = "http://localhost:58203/";
 
 function testarCliente() {
     var iaziUsuario = localStorage.getItem("iaziUser");
+    
+    if (iaziUsuario.iaziUrl == null) {
+            iaziUsuario = {
+                "idUsuario": iaziUsuario.idUsuario,
+                "roleUsuario": iaziUsuario.roleUsuario,
+                "passUsuario": iaziUsuario.passUsuario,
+                "tokenUsuario": '',
+                "iaziUrl": "http://http://localhost:58203/" };
+    }
     if (iaziUsuario != null) {
         getToken();
     } else {

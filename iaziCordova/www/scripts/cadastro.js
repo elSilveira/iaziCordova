@@ -126,27 +126,27 @@ function popUps(msg, location) {
 }
 
 function getToken() {
-    var userAtual = JSON.parse(localStorage.getItem("iaziUser"));
+    if(usuario == null) usuario = JSON.parse(localStorage.getItem("iaziUser"));
     var loginData = {
         grant_type: "password",
-        username: userAtual.idUsuario,
-        password: userAtual.passUsuario
+        username: usuario.idUsuario,
+        password: usuario.passUsuario
     }
 
     $.ajax({
         type: 'POST',
-        url: url+'token',
+        url: usuario.iaziUrl + 'token',
         contentType: 'application/x-www-form-urlencoded;charset=utf-8',
         data: loginData
     }).success(function (data) {
         userAtual = {
-            "idUsuario": userAtual.idUsuario,
-            "roleUsuario": userAtual.roleUsuario,
-            "passUsuario": userAtual.passUsuario,
+            "idUsuario": usuario.idUsuario,
+            "roleUsuario": usuario.roleUsuario,
+            "passUsuario": usuario.passUsuario,
             "tokenUsuario": data,
-            "iaziUrl": url
+            "iaziUrl": usuario.iaziUrl
         }
-        localStorage.setItem('iaziUser', JSON.stringify(userAtual));
+        localStorage.setItem('iaziUser', JSON.stringify(usuario));
         window.open("../home.html", "_self");
     })
 }
@@ -169,16 +169,17 @@ function cadastrarCliente() {
 
         $.ajax({
             type: 'POST',
-            url: url+'addclient',
+            url: usuario.iaziUrl+ 'api/addclient',
             contentType: "application/json",
             data: JSON.stringify({ Cliente: cliente, Password: password })
         }).success(function (data) {
-            var iaziUser = {
+            var usuario = {
                 "idUsuario": data.idUsuario,
                 "roleUsuario": data.roleUsuario,
-                "passUsuario": data.passRetorno
+                "passUsuario": data.passRetorno,
+                "iaziUrl" : usuario.iaziUrl
             }
-            localStorage.setItem('iaziUser', JSON.stringify(iaziUser));
+            localStorage.setItem('iaziUser', JSON.stringify(usuario));
             getToken();
         }).error(function () {
             alert("Erro ao cadastrar");

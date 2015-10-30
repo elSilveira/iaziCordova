@@ -1,5 +1,4 @@
-﻿var usuario;
-
+﻿
 function getUserInfo() {
     usuario = JSON.parse(localStorage.getItem('iaziUser'));
 }
