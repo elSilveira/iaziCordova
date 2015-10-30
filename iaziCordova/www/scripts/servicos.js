@@ -1,6 +1,4 @@
-﻿var usuario;
-
-function getServicos() {
+﻿function getServicos() {
     if (usuario == null) getUserInfo();
     $.ajax({
         type: 'GET',
@@ -39,10 +37,4 @@ function exibirCategorias() {
             $(this).css("backgroud-color", "#"+retornaCorOver(i));
         });
     })
-}
-
-
-
-function getUserInfo() {
-    usuario = JSON.parse(localStorage.getItem('iaziUser'));
 }

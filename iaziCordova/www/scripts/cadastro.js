@@ -135,7 +135,7 @@ function getToken() {
 
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:58203/token',
+        url: url+'token',
         contentType: 'application/x-www-form-urlencoded;charset=utf-8',
         data: loginData
     }).success(function (data) {
@@ -143,7 +143,8 @@ function getToken() {
             "idUsuario": userAtual.idUsuario,
             "roleUsuario": userAtual.roleUsuario,
             "passUsuario": userAtual.passUsuario,
-            "tokenUsuario": data
+            "tokenUsuario": data,
+            "iaziUrl": url
         }
         localStorage.setItem('iaziUser', JSON.stringify(userAtual));
         window.open("../home.html", "_self");
@@ -168,7 +169,7 @@ function cadastrarCliente() {
 
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:58203/api/addclient',
+            url: url+'addclient',
             contentType: "application/json",
             data: JSON.stringify({ Cliente: cliente, Password: password })
         }).success(function (data) {

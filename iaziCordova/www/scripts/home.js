@@ -1,4 +1,10 @@
-﻿function callPage(page) {
+﻿var usuario;
+
+function getUserInfo() {
+    usuario = JSON.parse(localStorage.getItem('iaziUser'));
+}
+
+function callPage(page) {
 
     var options = {
         animation: 'slide', // What animation to use

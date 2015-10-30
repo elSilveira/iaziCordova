@@ -26,6 +26,8 @@
 
 });
 
+//Url do sistema
+var url = "http://localhost:58203/";
 
 function testarCliente() {
     var iaziUsuario = localStorage.getItem("iaziUser");

@@ -58,4 +58,3 @@ function nextPage(page, data) {
         }
     }
 }
-
