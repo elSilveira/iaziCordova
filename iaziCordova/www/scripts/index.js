@@ -29,17 +29,18 @@
 //Url do sistema
 
 function testarCliente() {
-    var iaziUsuario = localStorage.getItem("iaziUser");
+    var iaziUsuario = JSON.parse(localStorage.getItem("iaziUser"));
     
-    if (iaziUsuario.iaziUrl == null) {
+    if (iaziUsuario.idUsuario != null) {
+        if (iaziUsuario.iaziUrl == null) {
             iaziUsuario = {
-                "idUsuario": iaziUsuario.idUsuario,
-                "roleUsuario": iaziUsuario.roleUsuario,
-                "passUsuario": iaziUsuario.passUsuario,
-                "tokenUsuario": '',
-                "iaziUrl": "http://http://localhost:58203/" };
-    }
-    if (iaziUsuario != null) {
+                "idUsuario": usuario.idUsuario,
+                "roleUsuario": usuario.roleUsuario,
+                "passUsuario": usuario.passUsuario,
+                "tokenUsuario": usuario.tokenUsuario,
+                "iaziUrl": "http://http://localhost:58203/"
+            }
+        }
         getToken();
     } else {
         addButtons();

@@ -139,7 +139,7 @@ function getToken() {
         contentType: 'application/x-www-form-urlencoded;charset=utf-8',
         data: loginData
     }).success(function (data) {
-        userAtual = {
+        usuario = {
             "idUsuario": usuario.idUsuario,
             "roleUsuario": usuario.roleUsuario,
             "passUsuario": usuario.passUsuario,

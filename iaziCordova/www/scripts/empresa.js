@@ -1,4 +1,5 @@
-﻿
+﻿var listServicosSelecionados;
+
 function getEmpresas(idCategoria) {
     $.ajax({
 
@@ -68,9 +69,9 @@ function listarServicoEmpresa(empresa) {
     $(".ui-content").append(pagePart);
 
     pagePart = "<table style='font-size: 13px; font-weight: bold; color: white; width: 100%;'><tr id='menuAgendamento' style='text-align: center;'><td class='tdServicos'>" +
-        "SERVIÇOS</td><td class='tdHorario'>" +
-        "HORÁRIO</td><td class='tdProfissional'>" +
-        "PROFISSIONAL</td></tr></table>";
+        "SERVIÇOS</td><td class='tdProfissional'>" +
+        "PROFISSIONAL</td><td class='tdHorario'>" +
+        "HORÁRIO</td></tr></table>";
     pagePart += "<p style='margin: 0; padding: 0; word-spacing: 0; font-size: 10px; text-align: center'>MARQUE OS SERVIÇOS QUE VOCE QUER SOLICITAR HORÁRIO</p>";
     $(".ui-content").append(pagePart);
     $("#menuAgendamento td").css("background-color", "#c1c1c1").css("height", "35px").css("margin", "2px").css("width", "30%");
@@ -103,9 +104,23 @@ function getServicos(idEmpresa) {
 function exibirServicoEmpresa() {
     var cat = JSON.parse(localStorage.getItem('iaziServicoEmpresa'));
     $.each(cat, function (i, v) {
-        var item ="<li>"+v.servico.nomeServico+"</li>";
+        var item = "<li style=' border-top: solid 1px #c1c1c1;'>" +
+            "<table style='width: 100%;'><tr><td>"+
+            "<p style='margin: 5px 0 0 0; padding: 0; font-weight: bold;'>" + v.servico.nomeServico + "</p>" +
+            "</td><td rowspan='2' style='vertical-align: middle; text-align: right; padding-right: 10px;' >"+
+            "<img id='select"+v.idServico+"' src='images/circlenotselected.png' width='25px' style='cursor:pointer;'/>" +
+            "</td></tr><tr><td colspan='2'>"+
+            "<p style='margin: 3px 0 5px 0; padding: 0; font-size: 11px; color: #c1c1c1;'>R$" + v.valorServico + " - " +
+            v.tempoServico + "min.</td></tr></table></li>";
         $("#agendamento-content").append(item);
-        //Adiciona função ao item da lista
+        $("#select" + v.idServico).click(function () { //Adiciona função ao item da lista
+            if ($("#select" + v.idServico).attr('src').indexOf("notselected") > 0) {
+                $("#select" + v.idServico).attr('src', 'images/circleselected.png');
+            }else {
+                $("#select" + v.idServico).attr('src', 'images/circlenotselected.png');
+            }
+        });
+        
 
     });
 }
