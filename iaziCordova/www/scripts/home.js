@@ -22,4 +22,3 @@ function Page1Controller($scope, Data) {
         $scope.ons.navigator.pushPage('index.html', selectedItem.title);
     }
 }
-

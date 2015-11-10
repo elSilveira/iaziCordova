@@ -4,3 +4,6 @@
 .btnHome:hover{
     background-color: #efefef;
 }
+body{
+    text-shadow: none;
+}

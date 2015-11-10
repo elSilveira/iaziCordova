@@ -72,3 +72,98 @@ function iaziHeader() {
     return "<img src='images/minitopoiazii.png' " +
     "style='height:30px; padding-top: 5px; padding-bottom: 5px;' />";
 }
+
+function showData(dia, diferenca) {
+    var val = new Date(dia.getFullYear(), dia.getMonth(), (dia.getDate() + diferenca));
+    return val.getDate();
+    
+}
+function diaDaSemana(dia, diferenca) {
+    var val = dia + diferenca;
+    if (val < 0)
+    {
+        val += 7;
+    } else if (val > 6) {
+        val -= 7;
+    }
+
+    switch (val) {
+        case 1:
+            return 'Seg';
+            break;
+        case 2:
+            return 'Ter';
+            break;
+        case 3:
+            return 'Qua';
+            break;
+        case 4:
+            return 'Qui';
+            break;
+        case 5:
+            return 'Sex';
+            break;
+        case 6:
+            return 'Sab';
+            break;
+        case 0:
+            return 'Dom';
+            break;
+
+    }
+}
+
+function horaCompleta(horas, minutos){
+    return (horas < 10 ? '0' + horas : horas) + "" + (minutos == 0 ? '00' : minutos);
+}
+
+function showAlert(msg, btn) {
+    $("#msg").append(msg);
+    $("#exitButton").appen(btn == null ? 'Sair' : btn);
+    $("modalWindow").show();
+    $("#exitButton").click(function () {
+        $("modalWindow").close();
+    })
+}
+
+function mesPorExtenso(val) {
+    switch (val) {
+        case 0:
+            return "Janeiro";
+            break;
+        case 1:
+            return "Fevereiro";
+            break;
+        case 2:
+            return "Março";
+            break;
+        case 3:
+            return "Abril";
+            break;
+        case 4:
+            return "Maio";
+            break;
+        case 5:
+            return "Junho";
+            break;
+        case 6:
+            return "Julho";
+            break;
+        case 7:
+            return "Agosto";
+            break;
+        case 8:
+            return "Setembro";
+            break;
+        case 9:
+            return "Outubro";
+            break;
+        case 10:
+            return "Novembro";
+            break;
+        case 11:
+            return "Dezembro";
+            break;
+    }
+
+}

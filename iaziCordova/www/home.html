@@ -17,15 +17,18 @@
         $(document).ready(
             function () {
                 nextPage(0, null);
-
-            })
+                $(".btnAgenda").click(function () {
+                    custom_alert("Display Messagee", "Set Title");
+                });
+        })
         .on("click", ".btnHome", function () {
-                nextPage(0, null);
+            nextPage(0, null);
         });
+           
     </script>
 </head>
 <body style="font-family: 'Myriad Pro'">
-    <div data-role="page" style="padding: 0; margin: 0; width: 100%;" >
+    <div id="homeDiv" data-role="page" style="padding: 0; margin: 0; width: 100%;" >
         <div id="header" data-hole="header" style="position: fixed; text-align:center; width:100%; background-color: #ff726e;">
             
         </div>
@@ -42,7 +45,7 @@
                         </p>
                     </td>
                     <td>
-                        <p>
+                        <p class="btnAgenda">
                             <img src="images/menucalendariounmarked.png" width="35" />
                         </p>
                     </td>
