@@ -1,4 +1,7 @@
-﻿.btnHome{
+﻿body{
+    background-color: white;
+}
+.btnHome{
      cursor: pointer;
 }
 .btnHome:hover{
@@ -6,4 +9,23 @@
 }
 body{
     text-shadow: none;
+}
+.confirm-button  {
+  text-align: center;
+  width: 80%;
+  margin: 10px auto 0;
+  height: 40px;
+  border: white solid 2px;
+  background-color: #dadada;
+}
+
+.confirm-button a:hover {
+    color: #ff726e;
+}
+
+.confirm-button a {
+    text-decoration: none;
+    position: relative;
+    top: 25%;
+    color: #ff726e;
 }

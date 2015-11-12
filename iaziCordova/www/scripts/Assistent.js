@@ -53,7 +53,6 @@ function nextPage(page, data) {
                 $("#header").empty();
                 $(".ui-content").append("<ul id='listEmpresas' style='list-style: none; margin: 0; padding: 0;'></ul>")
                 .css("padding", "32px 0 37px 0");
-
                 if (data == 'back') exibirEmpresas();
                 else getEmpresas(data);
                 break;
@@ -65,6 +64,22 @@ function nextPage(page, data) {
             default:
                 break;
         }
+    }
+}
+
+function getInfoHorario(value) {
+    switch (value) { //Horário 0 = Inalterado, 1 = Disponível, 2 = Indisponível
+        case 0:
+            return "Solicitar"
+            break;
+        case 1:
+            return "Disponível"
+            break;
+        case 2:
+            return "Indisponível"
+            break;
+        default:
+            break;
     }
 }
 
@@ -114,7 +129,7 @@ function diaDaSemana(dia, diferenca) {
 }
 
 function horaCompleta(horas, minutos){
-    return (horas < 10 ? '0' + horas : horas) + "" + (minutos == 0 ? '00' : minutos);
+    return (horas < 10 ? '0' + horas : horas) + "" + (minutos < 10 ? '0' + minutos : minutos);
 }
 
 function showAlert(msg, btn) {

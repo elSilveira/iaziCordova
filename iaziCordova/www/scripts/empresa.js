@@ -1,6 +1,7 @@
 ﻿var listServicosSelecionados = '';
 var listFuncionariosSelecionados = '';
 var actualPage;
+var horarioAgendado;
 
 function agendamentoPage(index, data) {
     $("#agendamento-content").empty();
@@ -10,14 +11,14 @@ function agendamentoPage(index, data) {
             $(".tdServicos").css("background-color", "white").css("color", "#ff726e");
             $("#infoPagina").empty();
             $("#infoPagina").append("MARQUE OS SERVIÇOS QUE VOCE QUER SOLICITAR HORÁRIO");
-            if (actualPage > 0) exibirServicoEmpresa();
+            if (data == null) exibirServicoEmpresa();
             else getServicos(data);
             break;
         case (1):
             $(".tdProfissional").css("background-color", "white").css("color", "#ff726e");
             $("#infoPagina").empty();
             $("#infoPagina").append("ESCOLHA O PROFISSIONAL PARA O ATENDIMENTO");
-            if (actualPage > 1) exibirFuncionariosEmpresa();
+            if (data == null) exibirFuncionariosEmpresa();
             else getFuncionarios(data);
             break;
         case (2):
@@ -85,7 +86,7 @@ function listarServicoEmpresa(empresa) {
     $("#header").append(headerWithBack);
 
     var pagePart =
-    "<table  style='margin-top:10px;'> <tr> " +
+    "<table  style='margin-top:10px; background-color: white;'> <tr> " +
         "<td style=' text-align: center;'><div>" +
         "<img src='images/favoritouncheck.png' width='25' style='position: absolute; left:6;'/>" +
         "<img style='width:25%; border-radius: 50%;' src='" + usuario.iaziUrl + "Assets/" + empresa.imagemEmpresa + "'  /> " +
@@ -107,36 +108,21 @@ function listarServicoEmpresa(empresa) {
     $(".ui-content").append(pagePart);
     $("#menuAgendamento td").css("background-color", "#c1c1c1").css("height", "30px").css("margin", "2px").css("width", "30%");
     $(".tdServicos").css("background-color", "white").css("color", "#ff726e");
-    $(".ui-content").append("<ul style='list-style: none; margin: 0; padding: 0; width:100%;' id='agendamento-content'></ul>");
+    $(".ui-content").append("<ul style='background-color: white; list-style: none; margin: 0; padding: 0; width:100%;' id='agendamento-content'></ul>");
     $("#headerBack").click(function () { nextPage(1, "back") }).css("cursor", "pointer");
-
+    
     $(".tdServicos").click(function () {
-        agendamentoPage(0, empresa.idEmpresa);
+        if (actualPage > 0) {
+            listFuncionariosSelecionados = '';
+            agendamentoPage(0, null);
+        }
     });
     $(".tdProfissional").click(function () {
-        if (actualPage < 1) {
-            if (listServicosSelecionados != null)
-                var data = '';
-            $("#agendamento-content li").each(function (index, value) {
-                var litem = $("#img" + value.id.replace('select', ''));
-                if (litem.attr('src').indexOf("notselected") < 0)
-                    data += data == '' ?
-                        value.id.replace('select', '') : ', ' + value.id.replace('select', '');
-            });
-            agendamentoPage(1, data);
-        } else agendamentoPage(1, 0);
+        if (actualPage == 2) {
+            agendamentoPage(1, null);
+        }
     });
-    $(".tdHorario").click(function () {
-        //if (listFuncionariosSelecionados != null)
-        //    var data = '';
-        //$("#agendamento-content li").each(function (index, value) {
-        //    var litem = $("#img" + value.id.replace('func', ''));
-        //    if (litem.attr('src').indexOf("notselected") < 0)
-        //        data += data == '' ?
-        //            value.id.replace('func', '') : ', ' + value.id.replace('func', '');
-        //});
-        agendamentoPage(2, 0);
-    });
+    actualPage = 0;
     getServicos(empresa.idEmpresa);
 }
 
@@ -164,31 +150,16 @@ function exibirServicoEmpresa() {
     $.each(cat, function (i, v) {
         var item = "<li style=' border-top: solid 1px #c1c1c1;' id='select" + v.idEmpresaServico + "'>" +
             "<table style='width: 100%;'><tr><td>" +
-            "<p style='margin: 5px 0 0 0; padding: 0; font-weight: bold;'>" + v.servico.nomeServico + "</p>" +
+            "<p style='margin: 5px 0 0 5px; padding: 0; font-weight: bold;'>" + v.servico.nomeServico + "</p>" +
             "</td><td rowspan='2' style='vertical-align: middle; text-align: right; padding-right: 10px;' >" +
-            "<img id='img" + v.idEmpresaServico + "' src='images/" +
-            (listServicosSelecionados != '' ?
-                        (listServicosSelecionados.indexOf('select' + v.idEmpresaServico) > -1 ?
-                        'circleselected' : 'circlenotselected')
-                        : 'circlenotselected') +
-            ".png' width='25px' style='cursor:pointer;'/>" +
+            "<img id='img" + v.idEmpresaServico + "' src='images/circleforward.png' width='35px' style='cursor:pointer;'/>" +
             "</td></tr><tr><td colspan='2'>" +
-            "<p style='margin: 3px 0 5px 0; padding: 0; font-size: 11px; color: #c1c1c1;'>R$" + v.valorServico + " - " +
+            "<p style='margin: 3px 0 5px 5px; padding: 0; font-size: 11px; color: #c1c1c1;'>R$" + v.valorServico + " - " +
             v.tempoServico + "min.</p></td></tr></table></li>";
         $("#agendamento-content").append(item);
         $("#select" + v.idEmpresaServico).click(function () { //Adiciona função ao item da lista
-            if ($("#img" + v.idEmpresaServico).attr('src').indexOf("notselected") > -1) {
-                $("#img" + v.idEmpresaServico).attr('src', 'images/circleselected.png');
-            } else {
-                $("#img" + v.idEmpresaServico).attr('src', 'images/circlenotselected.png');
-            }
-            listServicosSelecionados = '';
-            $("#agendamento-content li").each(function (index, value) {
-                var litem = $("#img" + value.id.replace('select', ''));
-                if (litem.attr('src').indexOf("notselected") < 0)
-                    listServicosSelecionados += listServicosSelecionados == '' ?
-                        value.id : ',' + value.id;
-            });
+            listServicosSelecionados = v.idEmpresaServico;
+            agendamentoPage(1, listServicosSelecionados);
         });
 
 
@@ -222,29 +193,14 @@ function exibirFuncionariosEmpresa() {
             "<table style='width: 100%'><tr><td>" +
             "<p style='margin: 5px 0 0 0; padding: 0; font-weight: bold;'>" + v.nomeCliente + " " + v.sobrenomeCliente + "</p>" +
         "</td><td rowspan='2' style='vertical-align: middle; text-align: right; padding-right: 10px;' >" +
-            "<img id='img" + v.idEmpresaCliente + "' src='images/" +
-            (listFuncionariosSelecionados != '' ?
-                        (listFuncionariosSelecionados.indexOf('func' + v.idEmpresaCliente) > -1 ?
-                        'circleselected' : 'circlenotselected')
-                        : 'circlenotselected') +
-            ".png' width='25px' style='cursor:pointer;'/>" +
+            "<img id='img" + v.idEmpresaCliente + "' src='images/circleforward.png' width='35px' style='cursor:pointer;'/>" +
         "</td></tr><tr><td>" +
         "<p style='margin: 3px 0 5px 0; padding: 0; font-size: 11px; color: #c1c1c1;'>" + v.especializacaoCliente + " </p>" +
         "</td></tr></table</li>";
         $("#agendamento-content").append(item);
         $("#func" + v.idEmpresaCliente).click(function () {
-            if ($("#img" + v.idEmpresaCliente).attr('src').indexOf("notselected") > -1) {
-                $("#img" + v.idEmpresaCliente).attr('src', 'images/circleselected.png');
-            } else {
-                $("#img" + v.idEmpresaCliente).attr('src', 'images/circlenotselected.png');
-            }
-            listFuncionariosSelecionados = '';
-            $("#agendamento-content li").each(function (index, value) {
-                var litem = $("#img" + value.id.replace('func', ''));
-                if (litem.attr('src').indexOf("notselected") < 0)
-                    listFuncionariosSelecionados += listFuncionariosSelecionados == '' ?
-                        value.id : ',' + value.id;
-            });
+            listFuncionariosSelecionados = v.idEmpresaCliente;
+            agendamentoPage(2, listFuncionariosSelecionados);
         });
     });
 }
@@ -266,7 +222,7 @@ function exibirAgenda(data) {
             "<td id='dia1'><p class='textAgenda'>" + diaDaSemana(data.getDay(), 1) + "</p><p>" + showData(data, 1) + "</p></td>" +
             "<td id='dia2'><p class='textAgenda'>" + diaDaSemana(data.getDay(), 2) + "</p><p>" + showData(data, 2) + "</p></td>" +
             "<td id='dia3'><p class='textAgenda'>" + diaDaSemana(data.getDay(), 3) + "</p><p>" + showData(data, 3) + "</p></td></tr></table></div>"+
-            "<ul class='horarioAgenda' style='position: static; list-style: none; margin: 0; padding: 0;'></ul></li>";
+            "<ul class='horarioAgenda' style='background-color: white; position: static; list-style: none; margin: 0; padding: 0;'></ul></li>";
     $("#agendamento-content").append(item);
     $(".diasAgenda td").css('width', '14%').css('background-color', '#c1c1c1').css('text-shadow', 'none').css('border-left', '1px solid white')
         .css('color', '#8E8E8E');
@@ -322,55 +278,116 @@ function exibirAgenda(data) {
         addHorarios(new Date(data.getFullYear(), data.getMonth(),
             (data.getDate() +3)));
     });
-
     addHorarios(data);
 }
 
-function addHorarios(horario) {
+function addHorarios(dataAgenda) {
+    horarioAgendado = dataAgenda;
+    var dataSend = {
+        idEmpresaCliente: listFuncionariosSelecionados,
+        ano: dataAgenda.getFullYear(),
+        mes: dataAgenda.getMonth(),
+        dia: dataAgenda.getDate()
+    }
+    $.ajax({
+        type: 'POST',
+        url: usuario.iaziUrl + 'agenda/listAgenda',
+        contentType: 'application/json',
+        data: JSON.stringify({ Funcionario: dataSend }),
+        headers: {
+            'Authorization': 'Bearer ' + usuario.tokenUsuario.access_token
+        }
+    })
+        .success(function (data) {
+            localStorage.setItem('iaziAgendaFuncionario', JSON.stringify(data));
+            mostrarHorarios(dataAgenda, data);
+        })
+        .error(function () {
+
+        });
+}
+
+
+function mostrarHorarios(horario, agenda) {
     if (horario == null) {
         horario = new Date();
     }
+    
     $(".horarioAgenda").empty();
     if (horario.getDate() >= new Date().getDate()) {
-        var horas = horario.getDate() != new Date().getDate() ? 08 : new Date().getHours();
-        var minutos = horario.getMinutes() > 30 ? 30 : 00;
-        
-        while (horas <= 22 && horas >= 8) {
-            var item = "<li style='border-top: solid 1px #c1c1c1;' class='hora" + horaCompleta(horas,minutos) + "'>" +
-            "<table style='width: 100%;'><tr><td>" +
-            "<p id='xhora" + horaCompleta(horas, minutos) + "' style='width: 100%; color: white; margin: 5px 0px 0px 10px; padding: 0; font-weight: bold; font-size: 20px;'>" +
-            (horas < 10 ? '0' + horas : horas) + ":" + (minutos == 0 ? '00' : minutos) + "</p>" +
-            "</td><td rowspan='2' style='vertical-align: middle; text-align: right; padding-right: 10px;' >" +
-            "<p id='cont" + horaCompleta(horas, minutos) + "' style='color: #8E8E8E; text-align: right; margin: auto; text-shadow: none; font-weight: bold;'>Solicitar</p>" +
-            "</td></tr><tr></li>";
+        if (horario.getDate() == new Date().getDate() && horario.getHours() == new Date().getHours()) {
+            if (horario.getMinutes() > 29) {
+                horario.setMinutes(0);
+                horario.setHours(horario.getHours() + 1);
+            } else {
+                horario.setMinutes(30);
+            }
+        }
+        var horas = horario.getDate() != new Date().getDate() ? 08 : horario.getHours();
+        var minutos = horario.getMinutes() > 29 ? 30 : 00;
 
-            $(".horarioAgenda").append(item);
+        while (horas <= 22 && horas >= 8) {
+            var item = "<li style='border-top: solid 1px #c1c1c1;' class='hora" + horaCompleta(horas, minutos) + "'>" +
+                "<table style='width: 100%;'><tr><td>" +
+                "<p id='xhora" + horaCompleta(horas, minutos) + "' style='color: white; margin: 5px 0px 0px 10px; padding: 0; font-weight: bold; font-size: 20px;'>" +
+                (horas < 10 ? '0' + horas : horas) + ":" + (minutos == 0 ? '00' : minutos) + "</p>" +
+                "</td><td style='width: 100%; height: 100%;' >" +
+                "<p id='cont" + horaCompleta(horas, minutos) + "' style='margin: 8px 0 0 5px; color: #8E8E8E; text-shadow: none; font-weight: bold;'>Solicitar</p>" +
+                "</td><td style='vertical-align: middle; text-align: right; padding-right: 10px;' >" +
+                "<img id='img" + horaCompleta(horas, minutos) + "' src='images/circleforward.png' width='35px' style='cursor:pointer;'/>" +
+                "</td></tr></table></li>";
+                $(".horarioAgenda").append(item);
             var liItem = ".hora" + horaCompleta(horas, minutos);
             $(liItem).css("background-color", (minutos == 30 ? "#dadada" : "#c1c1c1")).css("color", "8e8e8e");
-            
-            $(liItem).click(function () {
-                var horario;
-                var nomeServicos = "";
-                var obj = "#"+event.target.id;
-                if (obj.indexOf("cont") > -1) {
-                    horario = obj.replace("#cont", "");
-                    horario = horario.substr(0, 2) + ":" + horario.substr(2);
-                }else if (obj.indexOf("xhora") > -1) {
-                    horario = obj.replace("#xhora", "").substr(0, 1) + ":" + horario.substr(1);
-                };
-                if (horario != null) {
-                    
-                    var servico = JSON.parse(localStorage.getItem("iaziServicoEmpresa"));
-                    var selecionados = listServicosSelecionados.split(",");
-                    $.each(selecionados, function (index, valor) {
-                        $.each(servico, function (index2, valor2) {
-                            if (valor2.idEmpresaServico == valor.replace('select', '')) {
-                                nomeServicos += nomeServicos == "" ? valor2.servico.nomeServico : ", " + alor2.servico.nomeServico;
-                            }
-                        });
-                    });
-                    
+
+            $.each(agenda, function (idx, itm) {
+                var dataAgenda = new Date(itm.horarioAgenda);
+                if (dataAgenda.getTimezoneOffset() == 120) dataAgenda.setHours(dataAgenda.getHours() + 2);
+                console.log(dataAgenda + "");
+                if (horario.getDate() == dataAgenda.getDate()) {
+
+                    var cont = "#cont" + horaCompleta(dataAgenda.getHours()+2, dataAgenda.getMinutes());
+                    $(cont).empty();
+                    $(cont).append(getInfoHorario(itm.infoHorario));
+                    $(cont).css("color", (itm.infoHorario == 0 ? "#8E8E8E" :
+                                          (itm.infoHorario == 1 ? "#ff726e" : "#996767")));
+                    if (itm.infoHorario == 2) {
+                        var imgRemove = "#img" + horaCompleta(dataAgenda.getHours()+2, dataAgenda.getMinutes());
+                        $(imgRemove).remove();
+                    }
                 }
+            });
+
+            $(liItem).click(function () {
+                var horarioEnvio;
+                if (event.target.id.indexOf("cont") > -1) horarioEnvio = event.target.id.replace("cont", "");;
+                if (event.target.id.indexOf("img") > -1) horarioEnvio = event.target.id.replace("img", "");
+                if (event.target.id.indexOf("xhora") > -1) horarioEnvio = event.target.id.replace("xhora", "");
+                
+                horarioEnvio = horarioEnvio.substr(0, 2) + ":" + horarioEnvio.substr(2,2);
+                exibirConfirmacao(horarioEnvio);
+            //    var horario;
+            //    var nomeServicos = "";
+            //    var obj = "#"+event.target.id;
+            //    if (obj.indexOf("cont") > -1) {
+            //        horario = obj.replace("#cont", "");
+            //        horario = horario.substr(0, 2) + ":" + horario.substr(2);
+            //    }else if (obj.indexOf("xhora") > -1) {
+            //        horario = obj.replace("#xhora", "").substr(0, 1) + ":" + horario.substr(1);
+            //    };
+            //    if (horario != null) {
+                    
+            //        var servico = JSON.parse(localStorage.getItem("iaziServicoEmpresa"));
+            //        var selecionados = listServicosSelecionados.split(",");
+            //        $.each(selecionados, function (index, valor) {
+            //            $.each(servico, function (index2, valor2) {
+            //                if (valor2.idEmpresaServico == valor.replace('select', '')) {
+            //                    nomeServicos += nomeServicos == "" ? valor2.servico.nomeServico : ", " + alor2.servico.nomeServico;
+            //                }
+            //            });
+            //        });
+                    
+            //    }
                 
             });
             if (minutos == 30) {
@@ -380,4 +397,52 @@ function addHorarios(horario) {
             else minutos = 30;
         }
     }
+}
+
+function exibirConfirmacao(horario) {
+    var clienteServico = {
+        idUsuario: JSON.parse(localStorage["iaziUser"]).idUsuario,
+        idEmpresaCliente: listFuncionariosSelecionados,
+        idEmpresaServico: listServicosSelecionados,
+        dataServico: horarioAgendado.getFullYear() + '-' + (horarioAgendado.getMonth() + 1) + '-' +
+                    horarioAgendado.getDate() + ' ' + horario
+
+    };
+    var nomeFuncionario;
+    var nomeServico;
+    var funcs = JSON.parse(localStorage.getItem('iaziFuncionariosEmpresa'));
+    var servs = JSON.parse(localStorage.getItem('iaziServicoEmpresa'));
+    $.each(funcs, function (index, it) {
+        if (it.idEmpresaCliente == clienteServico.idEmpresaCliente)
+            nomeFuncionario = it.nomeCliente + " " + it.sobrenomeCliente;
+    });
+    $.each(servs, function (index, it) {
+        if (it.idEmpresaServico == clienteServico.idEmpresaServico)
+            nomeServico = it.servico.nomeServico;
+    });
+    $(".horarioAgenda").empty();
+    var item = "<li style='border-top: solid 1px #c1c1c1; ' class='selectHora" + horario + "'>" +
+                "<table style='width: 100%;'><tr style='background-color: #dadada;'><td >" +
+                "<p id='selectXhora" + horario + "' style='color: white; margin: 5px 0px 0px 10px; padding: 0; font-weight: bold; font-size: 20px;'>" +
+                horario + "</p>" +
+                "</td><td style='width: 100%; height: 100%;' >" +
+                "<p style='margin: 5px 0 0 5px; color: #8E8E8E; text-shadow: none; font-weight: bold; font-size: 18px;'>"+
+                nomeServico + "</p><p style='margin: 0 0 0 5px; color: #8E8E8E; text-shadow: none; font-weight: bold; font-size: 11px;' >" + nomeFuncionario + "</p>" +
+                "</td></tr></table><div style='margin-top: 15%;' id='divConfirmar' class='confirm-button'></div></li>";
+    $(".horarioAgenda").append(item);
+
+    item = "<a>Confirmar solicitação</a>";
+    $("#divConfirmar").append(item).click(function () {
+        confirmarHorario(clienteServico);
+    });
+    
+  
+}
+
+function confirmarHorario(horario) {
+    $("#divConfirmar").empty().css("background-color", "transparent");
+    var gif = "<img src='images/loading.gif' style='width: 20%'></img>";
+    $("#divConfirmar").append(gif);
+    var pause = 0;
+
 }
