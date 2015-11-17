@@ -400,26 +400,30 @@ function mostrarHorarios(horario, agenda) {
 }
 
 function exibirConfirmacao(horario) {
+    var nomeFuncionario;
+    var nomeServico;
+    var valorServico;
+    var funcs = JSON.parse(localStorage.getItem('iaziFuncionariosEmpresa'));
+    var servs = JSON.parse(localStorage.getItem('iaziServicoEmpresa'));
+    $.each(funcs, function (index, it) {
+        if (it.idEmpresaCliente == listFuncionariosSelecionados)
+            nomeFuncionario = it.nomeCliente + " " + it.sobrenomeCliente;
+    });
+    $.each(servs, function (index, it) {
+        if (it.idEmpresaServico == listFuncionariosSelecionados)
+            nomeServico = it.servico.nomeServico;
+        valorServico = it.valorServico;
+
+    });
     var clienteServico = {
         idUsuario: JSON.parse(localStorage["iaziUser"]).idUsuario,
         idEmpresaCliente: listFuncionariosSelecionados,
         idEmpresaServico: listServicosSelecionados,
+        valorServico: valorServico,
         dataServico: horarioAgendado.getFullYear() + '-' + (horarioAgendado.getMonth() + 1) + '-' +
                     horarioAgendado.getDate() + ' ' + horario
 
     };
-    var nomeFuncionario;
-    var nomeServico;
-    var funcs = JSON.parse(localStorage.getItem('iaziFuncionariosEmpresa'));
-    var servs = JSON.parse(localStorage.getItem('iaziServicoEmpresa'));
-    $.each(funcs, function (index, it) {
-        if (it.idEmpresaCliente == clienteServico.idEmpresaCliente)
-            nomeFuncionario = it.nomeCliente + " " + it.sobrenomeCliente;
-    });
-    $.each(servs, function (index, it) {
-        if (it.idEmpresaServico == clienteServico.idEmpresaServico)
-            nomeServico = it.servico.nomeServico;
-    });
     $(".horarioAgenda").empty();
     var item = "<li style='border-top: solid 1px #c1c1c1; ' class='selectHora" + horario + "'>" +
                 "<table style='width: 100%;'><tr style='background-color: #dadada;'><td >" +
@@ -443,6 +447,27 @@ function confirmarHorario(horario) {
     $("#divConfirmar").empty().css("background-color", "transparent");
     var gif = "<img src='images/loading.gif' style='width: 20%'></img>";
     $("#divConfirmar").append(gif);
-    var pause = 0;
+    
+    $.ajax({
+        type: 'POST',
+        url: usuario.iaziUrl + 'agenda/addcliser',
+        contentType: 'application/json',
+        data: JSON.stringify({ Horario: horario }),
+        headers: {
+            'Authorization': 'Bearer ' + usuario.tokenUsuario.access_token
+        }
+    })
+       .success(function (data) {
+           $("#divConfirmar").empty();
+                   $("#divConfirmar").append("Requisicao enviada.");
+        })
+       .error(function () {
+           $("#divConfirmar").empty();
+           $("#divConfirmar").append("Erro de requisição tente novamente. ");
+           var item = "Clique aqui.";
+           $("#divConfirmar").append(item).click(function () {
+               confirmarHorario(horario);
+           });
+       });
 
 }

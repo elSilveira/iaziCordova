@@ -4,23 +4,17 @@
 
     <link rel="stylesheet" href="css/index.css" />
 
-    <script src="scripts/index.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="lib/jquery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="scripts/index.js">app.initialize()</script>
     <script src="scripts/Assistent.js"> </script>
     <script src="scripts/cadastro.js"></script>
-    <script src="lib/jquery/jquery-1.9.1.min.js"></script>
-    <script>
-
-        
+    <script type="text/javascript">
+       
         $(document).ready(
             function () {
-                testarCliente();
+               testarCliente();
             });
-
-        $(function () {
-            $("#btnFacebook").click(function () {
-            });
-        });
-
     </script>
 </head>
 <body>

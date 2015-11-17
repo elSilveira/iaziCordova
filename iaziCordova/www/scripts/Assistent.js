@@ -1,6 +1,12 @@
 ﻿var actualPage;
 var usuario = null;
 
+
+function getUserInfo() {
+    this.usuario = JSON.parse(localStorage.getItem('iaziUser'));
+}
+
+
 function retornaCor(posicao) {
     while (posicao > 4) {
         posicao = posicao - 5;
