@@ -2,6 +2,10 @@
 var listFuncionariosSelecionados = '';
 var actualPage;
 var horarioAgendado;
+var usuario = null;
+
+function getUserInfo() {
+    this.usuario = JSON.parse(localStorage.getItem('iaziUser'));
 
 function agendamentoPage(index, data) {
     $("#agendamento-content").empty();
@@ -36,7 +40,7 @@ function getEmpresas(idCategoria) {
     $.ajax({
 
         type: 'POST',
-        url: 'http://localhost:58203/empresas/listEmpresas',
+        url: usuario.iaziUrl + 'empresas/listEmpresas',
         contentType: 'application/json',
         data: JSON.stringify({ idUsuario: usuario.idUsuario, idCategoria: idCategoria }),
         headers: {
@@ -73,7 +77,7 @@ function exibirEmpresas() {
         "<tr><td id='tipoServico' style='font-size: 16px; text-align: center; padding-bottom: 5px; font-weight: bold;'>" +
         v.tipoServico
         "</td></tr></table></li>";
-        $("#listEmpresas").append(item);
+        $(".listEmpresas").append(item);
         $("#emp" + v.nomeEmpresa.replace(/ /g, '')).click(function () {
             nextPage(2, v) // 2 = Servicos
         })

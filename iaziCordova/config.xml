@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.myappf209bd" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="199">
+<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.myappf209bd" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="201">
   <name>iazi</name>
-  <description>A blank project that uses Apache Cordova to help you build an app that targets multiple mobile platforms: Android, iOS, Windows, and Windows Phone.</description>
+  <description>Iazi agendamentos</description>
   <author href="http://cordova.io" email="duzitz@gmail.com">iazi</author>
   <content src="index.html" />
-  <access origin="*" />
   <vs:features />
   <preference name="SplashScreen" value="screen" />
   <preference name="windows-target-version" value="8.1" />
+  <access origin="*" />
+  <allow-navigation href="http://*/*" />
   <!-- Support for Cordova 5.0.0 plugin system -->
+  <allow-intent href="*" />
   <allow-intent href="http://*/*" />
   <allow-intent href="https://*/*" />
   <allow-intent href="tel:*" />
@@ -113,11 +115,13 @@
       <vs:name>iazi</vs:name>
     </vs:platformSpecificWidget>
   </vs:platformSpecificValues>
-  <preference name="KeepRunning" value="False" />
-  <preference name="ShowTitle" value="True" />
-  <preference name="InAppBrowserStorageEnabled" value="False" />
-  <preference name="SuppressesIncrementalRendering" value="True" />
+  <preference name="KeepRunning" value="True" />
+  <preference name="ShowTitle" value="False" />
+  <preference name="InAppBrowserStorageEnabled" value="True" />
+  <preference name="SuppressesIncrementalRendering" value="False" />
   <vs:plugin name="cordova-plugin-geolocation" version="1.0.1" />
   <vs:plugin name="com.pushbots.push" version="1.2.8" src="https://github.com/pushbots/phonegap" />
   <vs:plugin name="cordova-plugin-device" version="1.0.1" />
+  <vs:plugin name="cordova-plugin-whitelist" version="1.2.0" />
+  <access origin="http://iazi-com-br.umbler.net" />
 </widget>

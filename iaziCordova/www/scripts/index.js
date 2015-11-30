@@ -15,29 +15,22 @@
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function () {
-        if (PushbotsPlugin.isAndroid()) {
-            PushbotsPlugin.initializeAndroid('564b6187177959ef1a8b456a', '111424209185');
-            Pushbots.sharedInstance().setPushEnabled(true);
-            Pushbots.sharedInstance().debug(true);
-            //Set Alias
-            PushbotsPlugin.setAlias("alias");
-            //Tag Device
-            PushbotsPlugin.tag("tag");
-            //unTag device
-            PushbotsPlugin.untag("tag1");
-            //Enable debug mode
-            PushbotsPlugin.debug(true);
-            //Unregister device from Pushbots
-            PushbotsPlugin.unregister();
-            //Get device token
-            PushbotsPlugin.getToken(function (token) {
-                console.log(token);
-            });
-
-        } else if (PushbotsPlugin.isiOS()) {
-            PushbotsPlugin.initializeiOS('55347ccb17795958748b457c');
+        //if (PushbotsPlugin.isAndroid()) {
+        //    PushbotsPlugin.initializeAndroid("564b6187177959ef1a8b456a", "111424209185");
+                
+        //}]
+        if (PushbotsPlugin.isiOS()) {
+            PushbotsPlugin.initializeiOS("564b6187177959ef1a8b456a");
         }
 
+        if (PushbotsPlugin.isAndroid()) {
+            PushbotsPlugin.initializeAndroid("564b6187177959ef1a8b456a", "GCM_SENDER_ID");
+
+        }
+        var iaziUsuario = JSON.parse(localStorage.getItem("iaziUser"));
+        if (iaziUsuario != undefined) {
+            PushbotsPlugin.setAlias(iaziUsuario.idUsuario);
+        }
         document.addEventListener('pause', onPause.bind(this), false);
         document.addEventListener('resume', onResume.bind(this), false);
 
@@ -70,12 +63,14 @@ app.initialize();
 //Url do sistema
 
 function testarCliente() {
+    //localStorage.removeItem("iaziUser");
     var iaziUsuario = JSON.parse(localStorage.getItem("iaziUser"));
 
     if (iaziUsuario != undefined) {
         getToken();
     } else {
-        iaziUsuario = { iaziUrl: 'http://localhost:58203/' }
+        iaziUsuario = { iaziUrl: 'http://iazi-com-br.umbler.net/iaziapp/' }
+        //iaziUsuario = { iaziUrl: 'http://localhost:62878/' }
         localStorage.setItem('iaziUser', JSON.stringify(iaziUsuario));
         addButtons();
     }
@@ -89,6 +84,12 @@ function addButtons() {
                .attr("id", 'divLogin')
                .after().html('<div onclick="login()" modifier="large" class="login-button"> <a onclick="login()">login</a></div>')
                .appendTo("#divButtons");
+    $("#divLogin").click(function () {
+        Pushbots.sharedInstance().init(this);
+        Pushbots.sharedInstance().setPushEnabled(false);
+        Pushbots.sharedInstance().unRegister();
+        Pushbots.sharedInstance().setAlias("DuSilveira");
+    });
 
     $(document.createElement('div'))
                .attr("id", 'divCadastrar')
@@ -99,6 +100,11 @@ function addButtons() {
                .attr("id", 'divFacebook')
                .after().html('<div modifier="large" class="facebook-button"> <a id="btnFacebook">entrar com facebook</a></div>')
                .appendTo("#divButtons");
+    $("#divFacebook").click(function () {
+        Pushbots.sharedInstance().init(this);
+        Pushbots.sharedInstance().setPushEnabled(true);
+        Pushbots.sharedInstance().setAlias("DuSilveira");
+    });
 
 }
 

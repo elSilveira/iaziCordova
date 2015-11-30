@@ -126,32 +126,32 @@ function popUps(msg, location) {
 }
 
 function getToken() {
-    usuario = JSON.parse(localStorage.getItem("iaziUser"));
+   var usuarioToken = JSON.parse(localStorage.getItem("iaziUser"));
     var loginData = {
         grant_type: "password",
-        username: usuario.idUsuario,
-        password: usuario.passUsuario
+        username: usuarioToken.idUsuario,
+        password: usuarioToken.passUsuario
     }
 
     $.ajax({
         type: 'POST',
-        url: usuario.iaziUrl + 'token',
+        url: usuarioToken.iaziUrl + 'token',
         contentType: 'application/x-www-form-urlencoded;charset=utf-8',
         data: loginData
     }).success(function (data) {
-        usuario = {
-            "idUsuario": usuario.idUsuario,
-            "roleUsuario": usuario.roleUsuario,
-            "passUsuario": usuario.passUsuario,
+        usuarioToken = {
+            "idUsuario": usuarioToken.idUsuario,
+            "roleUsuario": usuarioToken.roleUsuario,
+            "passUsuario": usuarioToken.passUsuario,
             "tokenUsuario": data,
-            "iaziUrl": usuario.iaziUrl
+            "iaziUrl": usuarioToken.iaziUrl
         }
-        localStorage.setItem('iaziUser', JSON.stringify(usuario));
-        window.open("../home.html", "_self");
+        localStorage.setItem('iaziUser', JSON.stringify(usuarioToken));
+        window.open("Home.html", "_self");
     }).error(function () {
         localStorage.removeItem("iaziUser");
         testarCliente();
-    })
+    });
 }
 
 function cadastrarCliente() {
@@ -168,10 +168,13 @@ function cadastrarCliente() {
         };
 
         var password = $("#txtSenha").val();
-        if (usuario == null) usuario = JSON.parse(localStorage.getItem('iaziUser'));
+        var cadUsuario = JSON.parse(localStorage.getItem('iaziUser'));
+        $("#divBtnCadastrar").empty().css("background-color", "transparent").css("text-align", "center");
+        var gif = "<img src='images/loading.gif' style='width: 20%'></img>";
+        $("#divBtnCadastrar").append(gif);
         $.ajax({
             type: 'POST',
-            url: usuario.iaziUrl + 'api/addclient',
+            url: cadUsuario.iaziUrl + 'api/addclient',
             contentType: "application/json",
             data: JSON.stringify({ Cliente: cliente, Password: password })
         }).success(function (data) {
@@ -179,12 +182,14 @@ function cadastrarCliente() {
                 "idUsuario": data.idUsuario,
                 "roleUsuario": data.roleUsuario,
                 "passUsuario": data.passRetorno,
-                "iaziUrl": usuario.iaziUrl
+                "iaziUrl": cadUsuario.iaziUrl
             };
             localStorage.setItem('iaziUser', JSON.stringify(iaziUser));
             getToken();
-        }).error(function () {
-            alert("Erro ao cadastrar");
+        }).error(function (data) {
+            $("#divBtnCadastrar").empty();
+            $("#divBtnCadastrar").append("<ons-button modifier='large--cta' style='padding-top: 5px; background-color: #ff5a54' id='btnCadastrar'>Finalizar Cadastro</ons-button>");
+            alert("Erro ao cadastrar!");
         })
-    }
+    };
 }

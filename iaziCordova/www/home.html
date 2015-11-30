@@ -1,30 +1,24 @@
 ﻿<html>
 <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <meta charset="utf-8"/>
     <link rel="stylesheet" href="css/servicos.css" />
     <link rel="stylesheet" href="css/home.css" />
 
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="scripts/home.js"></script>
+    <script src="scripts/assistent.js"></script>
     <script src="scripts/cadastro.js"></script>
     <script src="scripts/empresa.js"></script>
-    <script src="scripts/assistent.js"></script>
     <script src="scripts/servicos.js"></script>
 
     <script>
+        
         $(document).ready(
             function () {
                 nextPage(0, null);
-                $(".btnAgenda").click(function () {
-                    custom_alert("Display Messagee", "Set Title");
-                });
-        })
-        .on("click", ".btnHome", function () {
-            nextPage(0, null);
-        });
-           
+            });
+
     </script>
 </head>
 <body style="font-family: 'Myriad Pro'">
@@ -40,9 +34,9 @@
             <table style="width:100%; background-color: white;">
                 <tr style="text-align:center">
                     <td >
-                        <p class="btnHome">
+                        <div class="btnHome">
                             <img src="images/menuhome.png" width="35" />
-                        </p>
+                        </div>
                     </td>
                     <td>
                         <p class="btnAgenda">
@@ -50,7 +44,7 @@
                         </p>
                     </td>
                     <td>
-                        <p>
+                        <p class="btnPerson">
                             <img src="images/menuperson.png" width="35" />
                         </p>
                     </td>

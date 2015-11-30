@@ -1,24 +1,26 @@
 ﻿function getCategorias() {
-    if (usuario == null) getUserInfo();
+    var usuarioCat = JSON.parse(localStorage.getItem("iaziUser"));
     $.ajax({
         type: 'GET',
-        url: usuario.iaziUrl+'servicos/listCategoria',
+        url: usuarioCat.iaziUrl + 'servicos/listCategoria',
         contentType: 'application/json',
-        data: JSON.stringify({ IdUsuario: usuario.idusuario }),
+        data: JSON.stringify({ IdUsuario: usuarioCat.idUsuario }),
         headers: {
-            'Authorization': 'Bearer ' + usuario.tokenUsuario.access_token
+            'Authorization': 'Bearer ' + usuarioCat.tokenUsuario.access_token
         }
     })
         .success(function (data) {
             localStorage.setItem('iaziCategorias', JSON.stringify(data));
             exibirCategorias();
         })
-        .error(function () {
-            getToken();
+        .error(function (data) {
+            alert("Erro" + data.toString());
         });
 }
 
 function exibirCategorias() {
+    alert("listou");
+    $(".listCategorias").empty();
     var cat = JSON.parse(localStorage.getItem('iaziCategorias'));
     $.each(cat, function (i, v) {
         var item =
@@ -29,12 +31,12 @@ function exibirCategorias() {
                     "</td><td style='font-size: 20px;'>" +
                     v.nomeCategoria +
                "</td></tr></table></li>";
-            $("#listCategorias").append(item);
+        $(".listCategorias").append(item);
         //Adiciona função ao item da lista
         $("#cat" + v.nomeCategoria.replace(/ /g, '')).click(function () {
             nextPage(1, v.idCategoria) // 1 = Categorias
         }).on("mouseover", function () {
-            $(this).css("backgroud-color", "#"+retornaCorOver(i));
+            $(this).css("backgroud-color", "#" + retornaCorOver(i));
         });
-    })
+    });
 }
