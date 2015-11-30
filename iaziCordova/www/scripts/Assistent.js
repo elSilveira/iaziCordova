@@ -1,11 +1,4 @@
-﻿var actualPage;
-var usuario = null;
-
-
-function getUserInfo() {
-    this.usuario = JSON.parse(localStorage.getItem('iaziUser'));
-}
-
+﻿var actualPage = null;
 
 function retornaCor(posicao) {
     while (posicao > 4) {
@@ -50,14 +43,14 @@ function nextPage(page, data) {
             case (0):     //Categorias
                 $(".ui-content").empty();
                 $("#header").empty();
-                $(".ui-content").append("<ul id='listCategorias' style='list-style: none; margin: 0; padding: 0;'></ul>")
+                $(".ui-content").append("<ul class='listCategorias' style='list-style: none; margin: 0; padding: 0;'></ul>")
                 .css("padding", "0 0 37px 0");
                 getCategorias();
                 break;
             case (1):     //Empresas
                 $(".ui-content").empty();
                 $("#header").empty();
-                $(".ui-content").append("<ul id='listEmpresas' style='list-style: none; margin: 0; padding: 0;'></ul>")
+                $(".ui-content").append("<ul class='listEmpresas' style='list-style: none; margin: 0; padding: 0;'></ul>")
                 .css("padding", "32px 0 37px 0");
                 if (data == 'back') exibirEmpresas();
                 else getEmpresas(data);
@@ -76,13 +69,13 @@ function nextPage(page, data) {
 function getInfoHorario(value) {
     switch (value) { //Horário 0 = Inalterado, 1 = Disponível, 2 = Indisponível
         case 0:
-            return "Solicitar"
+            return "Solicitar";
             break;
         case 1:
-            return "Disponível"
+            return "Disponível";
             break;
         case 2:
-            return "Indisponível"
+            return "Indisponível";
             break;
         default:
             break;
@@ -144,7 +137,7 @@ function showAlert(msg, btn) {
     $("modalWindow").show();
     $("#exitButton").click(function () {
         $("modalWindow").close();
-    })
+    });
 }
 
 function mesPorExtenso(val) {
