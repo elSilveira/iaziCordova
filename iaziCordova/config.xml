@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.myappf209bd" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="201">
+<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.myappf209bd" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="20152">
   <name>iazi</name>
   <description>Iazi agendamentos</description>
   <author href="http://cordova.io" email="duzitz@gmail.com">iazi</author>
@@ -108,17 +108,17 @@
   <preference name="android-minSdkVersion" value="10" />
   <preference name="android-maxSdkVersion" value="22" />
   <preference name="android-targetSdkVersion" value="19" />
-  <preference name="Fullscreen" value="False" />
+  <preference name="Fullscreen" value="True" />
   <preference name="deployment-target" value="12" />
   <vs:platformSpecificValues>
     <vs:platformSpecificWidget platformName="windows" id="iaziapp" version="0.0.1.0">
       <vs:name>iazi</vs:name>
     </vs:platformSpecificWidget>
   </vs:platformSpecificValues>
-  <preference name="KeepRunning" value="True" />
-  <preference name="ShowTitle" value="False" />
-  <preference name="InAppBrowserStorageEnabled" value="True" />
-  <preference name="SuppressesIncrementalRendering" value="False" />
+  <preference name="KeepRunning" value="False" />
+  <preference name="ShowTitle" value="True" />
+  <preference name="InAppBrowserStorageEnabled" value="False" />
+  <preference name="SuppressesIncrementalRendering" value="True" />
   <vs:plugin name="cordova-plugin-geolocation" version="1.0.1" />
   <vs:plugin name="com.pushbots.push" version="1.2.8" src="https://github.com/pushbots/phonegap" />
   <vs:plugin name="cordova-plugin-device" version="1.0.1" />

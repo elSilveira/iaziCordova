@@ -17,20 +17,22 @@
     onDeviceReady: function () {
         //if (PushbotsPlugin.isAndroid()) {
         //    PushbotsPlugin.initializeAndroid("564b6187177959ef1a8b456a", "111424209185");
-                
+
         //}]
+
         if (PushbotsPlugin.isiOS()) {
             PushbotsPlugin.initializeiOS("564b6187177959ef1a8b456a");
         }
 
         if (PushbotsPlugin.isAndroid()) {
-            PushbotsPlugin.initializeAndroid("564b6187177959ef1a8b456a", "GCM_SENDER_ID");
+            PushbotsPlugin.initializeAndroid("564b6187177959ef1a8b456a", "111424209185");
 
         }
         var iaziUsuario = JSON.parse(localStorage.getItem("iaziUser"));
         if (iaziUsuario != undefined) {
             PushbotsPlugin.setAlias(iaziUsuario.idUsuario);
         }
+
         document.addEventListener('pause', onPause.bind(this), false);
         document.addEventListener('resume', onResume.bind(this), false);
 
@@ -66,29 +68,40 @@ function testarCliente() {
     //localStorage.removeItem("iaziUser");
     var iaziUsuario = JSON.parse(localStorage.getItem("iaziUser"));
 
-    if (iaziUsuario != undefined) {
-        getToken();
+
+    if (iaziUsuario != null && iaziUsuario.idUsuario != undefined) {
+        getToken(true);
     } else {
-        iaziUsuario = { iaziUrl: 'http://iazi-com-br.umbler.net/iaziapp/' }
-        //iaziUsuario = { iaziUrl: 'http://localhost:62878/' }
+        //iaziUsuario = { iaziUrl: 'http://iazi-com-br.umbler.net/iaziapp/' }
+        iaziUsuario = { iaziUrl: 'http://localhost:62878/' }
         localStorage.setItem('iaziUser', JSON.stringify(iaziUsuario));
         addButtons();
     }
 
 }
 
+function addLogin() {
+    $("#divButtons").empty();
+    var item = "<div > " +
+                    "<input style='margin: 0 auto; color: white; padding-top: 15px; padding-bottom: 5px;' type='email' placeholder='Email' value='' id='txtUsuario' autofocus /> " +
+                    "<input style='margin: 0 auto; margin-bottom: 20px; color: white; padding-top: 15px; padding-bottom: 5px;' type='password' placeholder='Senha' value='' id='txtSenhaLogin' /> " +
+                "</div>" +
+                "<div id='btnLogar' modifier='large' class='login-button'> <a>login</a></div>";
+
+    $("#divButtons").append(item);
+    $("#btnLogar").click(function () {
+        logar($("#txtUsuario").val(), $("#txtSenhaLogin").val());
+    });
+}
 
 function addButtons() {
 
     $(document.createElement('div'))
                .attr("id", 'divLogin')
-               .after().html('<div onclick="login()" modifier="large" class="login-button"> <a onclick="login()">login</a></div>')
+               .after().html('<div modifier="large" class="login-button"> <a>login</a></div>')
                .appendTo("#divButtons");
     $("#divLogin").click(function () {
-        Pushbots.sharedInstance().init(this);
-        Pushbots.sharedInstance().setPushEnabled(false);
-        Pushbots.sharedInstance().unRegister();
-        Pushbots.sharedInstance().setAlias("DuSilveira");
+        addLogin();
     });
 
     $(document.createElement('div'))
@@ -96,15 +109,12 @@ function addButtons() {
                .after().html('<div onclick="cadastrar()" modifier="large" class="login-button"> <a onclick="cadastrar()">cadastrar</a></div>')
                .appendTo("#divButtons");
 
-    $(document.createElement('div'))
-               .attr("id", 'divFacebook')
-               .after().html('<div modifier="large" class="facebook-button"> <a id="btnFacebook">entrar com facebook</a></div>')
-               .appendTo("#divButtons");
-    $("#divFacebook").click(function () {
-        Pushbots.sharedInstance().init(this);
-        Pushbots.sharedInstance().setPushEnabled(true);
-        Pushbots.sharedInstance().setAlias("DuSilveira");
-    });
+    //$(document.createElement('div'))
+    //           .attr("id", 'divFacebook')
+    //           .after().html('<div modifier="large" class="facebook-button"> <a id="btnFacebook">entrar com facebook</a></div>')
+    //           .appendTo("#divButtons");
+    //$("#divFacebook").click(function () {
+    //});
 
 }
 

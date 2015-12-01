@@ -19,7 +19,6 @@
 }
 
 function exibirCategorias() {
-    alert("listou");
     $(".listCategorias").empty();
     var cat = JSON.parse(localStorage.getItem('iaziCategorias'));
     $.each(cat, function (i, v) {

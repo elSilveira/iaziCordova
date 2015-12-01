@@ -125,7 +125,7 @@ function popUps(msg, location) {
         });
 }
 
-function getToken() {
+function getToken(open) {
    var usuarioToken = JSON.parse(localStorage.getItem("iaziUser"));
     var loginData = {
         grant_type: "password",
@@ -147,10 +147,40 @@ function getToken() {
             "iaziUrl": usuarioToken.iaziUrl
         }
         localStorage.setItem('iaziUser', JSON.stringify(usuarioToken));
-        window.open("Home.html", "_self");
+        if (open)
+            window.open("Home.html", "_self");
     }).error(function () {
         localStorage.removeItem("iaziUser");
         testarCliente();
+    });
+}
+
+function logar(usuario, senha) {
+    var usuarioLogin = JSON.parse(localStorage.getItem("iaziUser"));
+    var loginData = {
+        emailCliente : usuario,
+        senhaUsuario : senha
+    }
+    $("#divButtons").empty();
+
+    $.ajax({
+        type: 'POST',
+        url: usuarioLogin.iaziUrl + 'login',
+        contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+        data: loginData
+    }).success(function (data) {
+        if(data.usu.idUsuario > 0){
+            usuarioLogin = {
+                "idUsuario": data.usu.idUsuario,
+                "roleUsuario": data.usu.roleUsuario,
+                "passUsuario": data.usu.senhaUsuario,
+                "iaziUrl": usuarioLogin.iaziUrl
+            }
+            localStorage.setItem('iaziUser', JSON.stringify(usuarioLogin));
+        }
+        getToken(true);
+    }).error(function () {
+        
     });
 }
 
@@ -185,7 +215,7 @@ function cadastrarCliente() {
                 "iaziUrl": cadUsuario.iaziUrl
             };
             localStorage.setItem('iaziUser', JSON.stringify(iaziUser));
-            getToken();
+            getToken(true);
         }).error(function (data) {
             $("#divBtnCadastrar").empty();
             $("#divBtnCadastrar").append("<ons-button modifier='large--cta' style='padding-top: 5px; background-color: #ff5a54' id='btnCadastrar'>Finalizar Cadastro</ons-button>");

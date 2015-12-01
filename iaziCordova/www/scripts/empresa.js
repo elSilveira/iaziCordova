@@ -2,10 +2,7 @@
 var listFuncionariosSelecionados = '';
 var actualPage;
 var horarioAgendado;
-var usuario = null;
-
-function getUserInfo() {
-    this.usuario = JSON.parse(localStorage.getItem('iaziUser'));
+var usuario = JSON.parse(localStorage.getItem('iaziUser'));
 
 function agendamentoPage(index, data) {
     $("#agendamento-content").empty();

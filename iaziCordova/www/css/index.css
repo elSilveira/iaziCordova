@@ -3,14 +3,29 @@
     background-color: #ff5a64;
 }
 
-input[type=email], input[type=password] {
+input[type=email], input[type=password], input[type=text] {
   display: block;
-  width: 100%;
-  margin: 0 auto;
+  width: 80%;
   outline: none;
-  padding-top: 24px;
-  padding-bottom: 24px;
   text-align:center;
+  background-color: transparent;
+  border: none;
+  border-bottom: solid white 1px;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    white;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    white;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    white;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    white;
 }
 
 .login-button:hover{
