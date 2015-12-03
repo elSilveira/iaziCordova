@@ -72,8 +72,8 @@ function testarCliente() {
     if (iaziUsuario != null && iaziUsuario.idUsuario != undefined) {
         getToken(true);
     } else {
-        //iaziUsuario = { iaziUrl: 'http://iazi-com-br.umbler.net/iaziapp/' }
-        iaziUsuario = { iaziUrl: 'http://localhost:62878/' }
+        iaziUsuario = { iaziUrl: 'http://iazi-com-br.umbler.net/iaziapp/' }
+        //iaziUsuario = { iaziUrl: 'http://localhost:62878/' }
         localStorage.setItem('iaziUser', JSON.stringify(iaziUsuario));
         addButtons();
     }
@@ -82,7 +82,7 @@ function testarCliente() {
 
 function addLogin() {
     $("#divButtons").empty();
-    var item = "<div > " +
+    var item = "<div style='text-align: center'> " +
                     "<input style='margin: 0 auto; color: white; padding-top: 15px; padding-bottom: 5px;' type='email' placeholder='Email' value='' id='txtUsuario' autofocus /> " +
                     "<input style='margin: 0 auto; margin-bottom: 20px; color: white; padding-top: 15px; padding-bottom: 5px;' type='password' placeholder='Senha' value='' id='txtSenhaLogin' /> " +
                 "</div>" +

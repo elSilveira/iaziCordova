@@ -98,8 +98,7 @@ function validate() {
     else if (!filtroEmail.test($.trim($('#txtEmailCliente').val()))) {
         popUps('Informe um email válido.', '#txtEmailCliente');
     }
-
-    else if ($('#chkGps').val(':checked)') == false || latitude === 0) {
+    else if ($('#chkGps').val(':checked)') == false) {
         if ($.trim($('#txtCidadeCliente').val()) === '' && latitude === 0) {
             popUps('Informe a cidade', '#txtCidadeCliente');
         }
@@ -127,6 +126,7 @@ function popUps(msg, location) {
 
 function getToken(open) {
    var usuarioToken = JSON.parse(localStorage.getItem("iaziUser"));
+    
     var loginData = {
         grant_type: "password",
         username: usuarioToken.idUsuario,
@@ -220,6 +220,6 @@ function cadastrarCliente() {
             $("#divBtnCadastrar").empty();
             $("#divBtnCadastrar").append("<ons-button modifier='large--cta' style='padding-top: 5px; background-color: #ff5a54' id='btnCadastrar'>Finalizar Cadastro</ons-button>");
             alert("Erro ao cadastrar!");
-        })
+        });
     };
 }
