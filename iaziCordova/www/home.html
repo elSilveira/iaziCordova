@@ -3,11 +3,14 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="css/servicos.css" />
     <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/person.css" />
 
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="scripts/assistent.js"></script>
+    <script src="scripts/agenda.js"></script>
+    <script src="scripts/person.js"></script>
     <script src="scripts/cadastro.js"></script>
     <script src="scripts/empresa.js"></script>
     <script src="scripts/servicos.js"></script>
@@ -16,13 +19,23 @@
         
         $(document).ready(
             function () {
-                getToken();
+                
                 nextPage(0, null);
+
+                $(".btnHome").click(function () {
+                    nextPage(0, null);
+                });
+                $(".btnAgenda").click(function () {
+                    nextPage(3, null);
+                });
+                $(".btnPerson").click(function () {
+                    nextPage(4, null);
+                });
             });
-        
+       
     </script>
 </head>
-<body style="font-family: 'Myriad Pro'">
+<body style="font-family: 'Myriad Pro'; background-color: white;">
     <div id="homeDiv" data-role="page" style="background-color: white; padding: 0; margin: 0; width: 100%;" >
         <div id="header" data-hole="header" style="position: fixed; text-align:center; width:100%; background-color: #ff726e;">
             
@@ -40,14 +53,14 @@
                         </div>
                     </td>
                     <td>
-                        <p class="btnAgenda">
+                        <div class="btnAgenda">
                             <img src="images/menucalendariounmarked.png" width="35" />
-                        </p>
+                        </div>
                     </td>
                     <td>
-                        <p class="btnPerson">
+                        <div class="btnPerson">
                             <img src="images/menuperson.png" width="35" />
-                        </p>
+                        </div>
                     </td>
                 </tr>
             </table>

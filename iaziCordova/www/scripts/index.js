@@ -19,20 +19,24 @@
         //    PushbotsPlugin.initializeAndroid("564b6187177959ef1a8b456a", "111424209185");
 
         //}]
+        var pushToken = localStorage.getItem("pushIazi");
+        if (pushToken == undefined) {
+            if (PushbotsPlugin.isiOS()) {
+                PushbotsPlugin.initializeiOS("564b6187177959ef1a8b456a");
+            }
 
-        if (PushbotsPlugin.isiOS()) {
-            PushbotsPlugin.initializeiOS("564b6187177959ef1a8b456a");
+            if (PushbotsPlugin.isAndroid()) {
+                PushbotsPlugin.initializeAndroid("564b6187177959ef1a8b456a", "111424209185");
+
+            }
+            var iaziUsuario = JSON.parse(localStorage.getItem("iaziUser"));
+            if (iaziUsuario != undefined) {
+                PushbotsPlugin.setAlias(iaziUsuario.idUsuario);
+            }
+            PushbotsPlugin.getToken(function (token) {
+                localStorage.setItem("pushIazi", token);
+            });
         }
-
-        if (PushbotsPlugin.isAndroid()) {
-            PushbotsPlugin.initializeAndroid("564b6187177959ef1a8b456a", "111424209185");
-
-        }
-        var iaziUsuario = JSON.parse(localStorage.getItem("iaziUser"));
-        if (iaziUsuario != undefined) {
-            PushbotsPlugin.setAlias(iaziUsuario.idUsuario);
-        }
-
         document.addEventListener('pause', onPause.bind(this), false);
         document.addEventListener('resume', onResume.bind(this), false);
 
@@ -67,14 +71,15 @@ app.initialize();
 function testarCliente() {
     //localStorage.removeItem("iaziUser");
     var iaziUsuario = JSON.parse(localStorage.getItem("iaziUser"));
+    //localStorage.setItem('iaziUrl', 'http://localhost:62878/');
+    localStorage.setItem('iaziUrl', 'http://iazi-com-br.umbler.net/iaziapp/');
 
 
     if (iaziUsuario != null && iaziUsuario.idUsuario != undefined) {
         getToken(true);
     } else {
-        iaziUsuario = { iaziUrl: 'http://iazi-com-br.umbler.net/iaziapp/' }
-        //iaziUsuario = { iaziUrl: 'http://localhost:62878/' }
-        localStorage.setItem('iaziUser', JSON.stringify(iaziUsuario));
+        //localStorage.setItem('iaziUrl', 'http://localhost:62878/');
+        localStorage.setItem('iaziUrl', 'http://iazi-com-br.umbler.net/iaziapp/');
         addButtons();
     }
 
@@ -83,7 +88,7 @@ function testarCliente() {
 function addLogin() {
     $("#divButtons").empty();
     var item = "<div style='text-align: center'> " +
-                    "<input style='margin: 0 auto; color: white; padding-top: 15px; padding-bottom: 5px;' type='email' placeholder='Email' value='' id='txtUsuario' autofocus /> " +
+                    "<input style='margin: 0 auto; color: white; padding-top: 15px; padding-bottom: 5px;' type='email' placeholder='Email' value='' id='txtUsuario' /> " +
                     "<input style='margin: 0 auto; margin-bottom: 20px; color: white; padding-top: 15px; padding-bottom: 5px;' type='password' placeholder='Senha' value='' id='txtSenhaLogin' /> " +
                 "</div>" +
                 "<div id='btnLogar' modifier='large' class='login-button'> <a>login</a></div>";
@@ -118,10 +123,6 @@ function addButtons() {
 
 }
 
-
-function login() {
-
-}
 
 function cadastrar() {
     window.open("Cadastro.html", "_self");

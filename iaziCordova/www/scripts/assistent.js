@@ -37,7 +37,6 @@ function retornaCorOver(posicao) {
 }
 //Controla as mudanças de pagina e cliques
 function nextPage(page, data) {
-    if (actualPage != page) {
         actualPage = page;
         switch (page) {
             case (0):     //Categorias
@@ -60,10 +59,25 @@ function nextPage(page, data) {
                 $("#header").empty();
                 listarServicoEmpresa(data);
                 break;
+            case (3):
+                $(".ui-content").empty();
+                $("#header").empty();
+                $("#header").append(iaziHeader());
+                $(".ui-content").append("<ul class='listAgendaCliente' style='list-style: none; margin: 0; padding-left:0;'></ul>")
+                .css("padding-top", "50px");
+                agendaCliente(data);
+                break;
+            case (4):
+                $(".ui-content").empty();
+                $("#header").empty();
+                $("#header").append(iaziHeader());
+                $(".ui-content").append("<ul class='listPerson' style='list-style: none; margin: 0; padding-left:0;'></ul>")
+                .css("padding", "32px 0 37px 0");
+                exibirConfiguracoes(data);
+                break;
             default:
                 break;
         }
-    }
 }
 
 function getInfoHorario(value) {

@@ -1,0 +1,38 @@
+﻿
+input[type=email], input[type=tel], input[type=text] {
+  display: block;
+  margin: auto;
+  width: 80%;
+  outline: none;
+  text-align:center;
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 1px #e4e3e3;
+  padding-top: 15px;
+  border-radius: 2px;
+}
+
+.login-button  {
+  text-align: center;
+  width: 80%;
+  margin: 10px auto 0;
+  padding-top: 20px;
+ height: 40px;
+  border: white solid 2px;
+  background-color: #ff726e;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #8b8b8b;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #8b8b8b;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #8b8b8b;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #8b8b8b;
+}

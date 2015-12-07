@@ -1,14 +1,13 @@
 ﻿body{
     background-color: white;
+    font-family: myriad pro;
+    text-shadow: none;
 }
 .btnHome{
      cursor: pointer;
 }
 .btnHome:hover{
     background-color: #efefef;
-}
-body{
-    text-shadow: none;
 }
 .confirm-button  {
   text-align: center;

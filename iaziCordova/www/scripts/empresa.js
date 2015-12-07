@@ -3,6 +3,7 @@ var listFuncionariosSelecionados = '';
 var actualPage;
 var horarioAgendado;
 var usuario = JSON.parse(localStorage.getItem('iaziUser'));
+var token = JSON.parse(localStorage.getItem('iaziToken'));
 
 function agendamentoPage(index, data) {
     $("#agendamento-content").empty();
@@ -33,15 +34,35 @@ function agendamentoPage(index, data) {
 
 }
 
+function getEmpresa() {
+    $.ajax({
+
+        type: 'POST',
+        url: localStorage['iaziUrl'] + 'empresas/listEmpresa',
+        contentType: 'application/json',
+        data: JSON.stringify({ Cliente: usuario.cliente.idCliente }),
+        headers: {
+            'Authorization': 'Bearer ' + token.access_token
+        }
+    })
+        .success(function (data) {
+            localStorage.setItem('iaziEmpresaCliente', JSON.stringify(data));
+            window.open("Home.html", "_self");
+        })
+        .error(function () {
+            window.open("Home.html", "_self");
+        });
+}
+
 function getEmpresas(idCategoria) {
     $.ajax({
 
         type: 'POST',
-        url: usuario.iaziUrl + 'empresas/listEmpresas',
+        url: localStorage['iaziUrl'] + 'empresas/listEmpresas',
         contentType: 'application/json',
         data: JSON.stringify({ idUsuario: usuario.idUsuario, idCategoria: idCategoria }),
         headers: {
-            'Authorization': 'Bearer ' + usuario.tokenUsuario.access_token
+            'Authorization': 'Bearer ' + token.access_token
         }
     })
         .success(function (data) {
@@ -64,7 +85,7 @@ function exibirEmpresas() {
         "<table  style='margin: 5;'> <tr> " +
         "<td> <p style='text-align: left;'>" +
         "<img src='images/favoritouncheck.png' width='25'/> </p><p style='text-align: center;'>" +
-        "<img style='width:25%; border-radius: 50%;' src='" + usuario.iaziUrl + "Assets/" + v.imagemEmpresa + "' /> " +
+        "<img style='width:25%; border-radius: 50%;' src='" + localStorage['iaziUrl'] + "Assets/" + v.imagemEmpresa + "' /> " +
         "</p></td> </tr> <tr><td style='text-align: center; color: #808080; font-weight: bold;'> " +
                  v.nomeEmpresa +
         "</td></tr><tr><td style='letter-spacing: 0px; font-size: 11px; text-align: center;'> " +
@@ -90,7 +111,7 @@ function listarServicoEmpresa(empresa) {
     "<table  style='margin-top:10px; background-color: white;'> <tr> " +
         "<td style=' text-align: center;'><div>" +
         "<img src='images/favoritouncheck.png' width='25' style='position: absolute; left:6;'/>" +
-        "<img style='width:25%; border-radius: 50%;' src='" + usuario.iaziUrl + "Assets/" + empresa.imagemEmpresa + "'  /> " +
+        "<img style='width:25%; border-radius: 50%;' src='" + localStorage['iaziUrl'] + "Assets/" + empresa.imagemEmpresa + "'  /> " +
         "</div></td> </tr> <tr><td style='text-align: center; color: #808080; font-weight: bold;'> " +
                  empresa.nomeEmpresa +
         "</td></tr><tr><td style=' font-size: 11px; text-align: center;'> " +
@@ -130,11 +151,11 @@ function listarServicoEmpresa(empresa) {
 function getServicos(idEmpresaServico) {
     $.ajax({
         type: 'POST',
-        url: usuario.iaziUrl + 'empresas/listServicos',
+        url: localStorage['iaziUrl'] + 'empresas/listServicos',
         contentType: 'application/json',
         data: JSON.stringify({ idEmpresaServico: idEmpresaServico }),
         headers: {
-            'Authorization': 'Bearer ' + usuario.tokenUsuario.access_token
+            'Authorization': 'Bearer ' + token.access_token
         }
     })
         .success(function (data) {
@@ -171,7 +192,7 @@ function getFuncionarios(data) {
 
     $.ajax({
         type: 'POST',
-        url: usuario.iaziUrl + 'empresas/listFuncionarios',
+        url: localStorage['iaziUrl'] + 'empresas/listFuncionarios',
         contentType: 'application/json',
         data: JSON.stringify({ servicos: data }),
         headers: {
@@ -292,7 +313,7 @@ function addHorarios(dataAgenda) {
     }
     $.ajax({
         type: 'POST',
-        url: usuario.iaziUrl + 'agenda/listAgenda',
+        url: localStorage['iaziUrl'] + 'agenda/listAgenda',
         contentType: 'application/json',
         data: JSON.stringify({ Funcionario: dataSend }),
         headers: {
@@ -451,7 +472,7 @@ function confirmarHorario(horario) {
     
     $.ajax({
         type: 'POST',
-        url: usuario.iaziUrl + 'agenda/addcliser',
+        url: localStorage['iaziUrl'] + 'agenda/addcliser',
         contentType: 'application/json',
         data: JSON.stringify({ Horario: horario }),
         headers: {

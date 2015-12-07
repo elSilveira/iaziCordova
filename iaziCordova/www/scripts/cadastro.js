@@ -125,62 +125,57 @@ function popUps(msg, location) {
 }
 
 function getToken(open) {
-   var usuarioToken = JSON.parse(localStorage.getItem("iaziUser"));
-    
+    var usuarioToken = JSON.parse(localStorage.getItem("iaziUser"));
+
     var loginData = {
         grant_type: "password",
         username: usuarioToken.idUsuario,
-        password: usuarioToken.passUsuario
+        password: usuarioToken.senhaUsuario
     }
 
     $.ajax({
         type: 'POST',
-        url: usuarioToken.iaziUrl + 'token',
+        url: localStorage['iaziUrl'] + 'token',
         contentType: 'application/x-www-form-urlencoded;charset=utf-8',
         data: loginData
     }).success(function (data) {
-        usuarioToken = {
-            "idUsuario": usuarioToken.idUsuario,
-            "roleUsuario": usuarioToken.roleUsuario,
-            "passUsuario": usuarioToken.passUsuario,
-            "tokenUsuario": data,
-            "iaziUrl": usuarioToken.iaziUrl
-        }
-        localStorage.setItem('iaziUser', JSON.stringify(usuarioToken));
-        if (open)
+        localStorage.setItem('iaziToken', JSON.stringify(data));
+        if (usuarioToken.roleUsuario != 'user') {
+            var emp = JSON.parse(localStorage.getItem('iaziEmpresaCliente'));
+            if(emp.idEmpresa == null)
+                getEmpresa();
+            else {
+                window.open("Home.html", "_self");
+            }
+        }else if (open)
             window.open("Home.html", "_self");
     }).error(function () {
-        localStorage.removeItem("iaziUser");
-        testarCliente();
+        // localStorage.removeItem("iaziUser");
+        //testarCliente();
     });
 }
 
 function logar(usuario, senha) {
-    var usuarioLogin = JSON.parse(localStorage.getItem("iaziUser"));
     var loginData = {
-        emailCliente : usuario,
-        senhaUsuario : senha
+        emailCliente: usuario,
+        senhaUsuario: senha
     }
     $("#divButtons").empty();
 
     $.ajax({
         type: 'POST',
-        url: usuarioLogin.iaziUrl + 'login',
+        url: localStorage['iaziUrl'] + 'login',
         contentType: 'application/x-www-form-urlencoded;charset=utf-8',
         data: loginData
     }).success(function (data) {
-        if(data.usu.idUsuario > 0){
-            usuarioLogin = {
-                "idUsuario": data.usu.idUsuario,
-                "roleUsuario": data.usu.roleUsuario,
-                "passUsuario": data.usu.senhaUsuario,
-                "iaziUrl": usuarioLogin.iaziUrl
-            }
-            localStorage.setItem('iaziUser', JSON.stringify(usuarioLogin));
+        if (data.usu.idUsuario > 0) {
+            localStorage.setItem("iaziUser", JSON.stringify(data.usu));
+            getToken(true);
+        } else {
+            addLogin();
         }
-        getToken(true);
-    }).error(function () {
-        
+    }).error(function (data) {
+        addLogin();
     });
 }
 
@@ -198,23 +193,16 @@ function cadastrarCliente() {
         };
 
         var password = $("#txtSenha").val();
-        var cadUsuario = JSON.parse(localStorage.getItem('iaziUser'));
         $("#divBtnCadastrar").empty().css("background-color", "transparent").css("text-align", "center");
         var gif = "<img src='images/loading.gif' style='width: 20%'></img>";
         $("#divBtnCadastrar").append(gif);
         $.ajax({
             type: 'POST',
-            url: cadUsuario.iaziUrl + 'api/addclient',
+            url: iaziUrl + 'api/addclient',
             contentType: "application/json",
             data: JSON.stringify({ Cliente: cliente, Password: password })
         }).success(function (data) {
-            var iaziUser = {
-                "idUsuario": data.idUsuario,
-                "roleUsuario": data.roleUsuario,
-                "passUsuario": data.passRetorno,
-                "iaziUrl": cadUsuario.iaziUrl
-            };
-            localStorage.setItem('iaziUser', JSON.stringify(iaziUser));
+            localStorage.setItem("iaziUser", JSON.stringify(data.usu));
             getToken(true);
         }).error(function (data) {
             $("#divBtnCadastrar").empty();
@@ -223,3 +211,4 @@ function cadastrarCliente() {
         });
     };
 }
+

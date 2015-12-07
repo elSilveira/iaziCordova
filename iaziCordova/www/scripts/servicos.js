@@ -1,12 +1,12 @@
 ﻿function getCategorias() {
-    var usuarioCat = JSON.parse(localStorage.getItem("iaziUser"));
+   
     $.ajax({
         type: 'GET',
-        url: usuarioCat.iaziUrl + 'servicos/listCategoria',
+        url: localStorage['iaziUrl'] + 'servicos/listCategoria',
         contentType: 'application/json',
-        data: JSON.stringify({ IdUsuario: usuarioCat.idUsuario }),
+        data: JSON.stringify({ IdUsuario: usuario.idUsuario }),
         headers: {
-            'Authorization': 'Bearer ' + usuarioCat.tokenUsuario.access_token
+            'Authorization': 'Bearer ' + token.access_token
         }
     })
         .success(function (data) {
