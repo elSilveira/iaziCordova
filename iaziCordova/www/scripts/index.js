@@ -19,6 +19,10 @@
         //    PushbotsPlugin.initializeAndroid("564b6187177959ef1a8b456a", "111424209185");
 
         //}]
+        $(document).bind('touchmove', function (e) {
+            e.preventDefault();
+        });
+
         var pushToken = localStorage.getItem("pushIazi");
         if (pushToken == undefined) {
             if (PushbotsPlugin.isiOS()) {

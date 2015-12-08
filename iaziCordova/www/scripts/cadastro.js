@@ -142,7 +142,7 @@ function getToken(open) {
         localStorage.setItem('iaziToken', JSON.stringify(data));
         if (usuarioToken.roleUsuario != 'user') {
             var emp = JSON.parse(localStorage.getItem('iaziEmpresaCliente'));
-            if(emp.idEmpresa == null)
+            if(emp != null || emp.idEmpresa == null)
                 getEmpresa();
             else {
                 window.open("Home.html", "_self");
@@ -152,6 +152,7 @@ function getToken(open) {
     }).error(function () {
         // localStorage.removeItem("iaziUser");
         //testarCliente();
+        alert("erro token");
     });
 }
 
@@ -161,7 +162,6 @@ function logar(usuario, senha) {
         senhaUsuario: senha
     }
     $("#divButtons").empty();
-
     $.ajax({
         type: 'POST',
         url: localStorage['iaziUrl'] + 'login',
@@ -175,6 +175,7 @@ function logar(usuario, senha) {
             addLogin();
         }
     }).error(function (data) {
+        alert("erroLogin");
         addLogin();
     });
 }

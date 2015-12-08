@@ -35,6 +35,8 @@ function agendamentoPage(index, data) {
 }
 
 function getEmpresa() {
+    if (usuario == null) usuario = JSON.parse(localStorage.getItem("iaziUser"));
+    if (token == null) token = JSON.parse(localStorage.getItem("iaziToken"));
     $.ajax({
 
         type: 'POST',

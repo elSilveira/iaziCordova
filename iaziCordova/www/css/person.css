@@ -1,5 +1,17 @@
 ﻿
-input[type=email], input[type=tel], input[type=text] {
+
+.inputTypeList {
+    display: block;
+  font-size: 10px;
+  outline: none;
+  text-align:center;
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 1px #e4e3e3;
+  border-radius: 2px;
+}
+
+.inputCad {
   display: block;
   margin: auto;
   width: 80%;
@@ -11,6 +23,7 @@ input[type=email], input[type=tel], input[type=text] {
   padding-top: 15px;
   border-radius: 2px;
 }
+
 
 .login-button  {
   text-align: center;
