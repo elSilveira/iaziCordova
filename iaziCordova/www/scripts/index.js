@@ -75,8 +75,8 @@ app.initialize();
 function testarCliente() {
     //localStorage.removeItem("iaziUser");
     var iaziUsuario = JSON.parse(localStorage.getItem("iaziUser"));
-    //localStorage.setItem('iaziUrl', 'http://localhost:62878/');
-    localStorage.setItem('iaziUrl', 'http://iazi-com-br.umbler.net/iaziapp/');
+    localStorage.setItem('iaziUrl', 'http://localhost:62878/');
+    //localStorage.setItem('iaziUrl', 'http://iazi-com-br.umbler.net/iaziapp/');
 
 
     if (iaziUsuario != null && iaziUsuario.idUsuario != undefined) {

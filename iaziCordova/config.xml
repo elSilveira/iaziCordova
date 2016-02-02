@@ -114,14 +114,14 @@
       <vs:name>iazi</vs:name>
     </vs:platformSpecificWidget>
   </vs:platformSpecificValues>
-  <preference name="KeepRunning" value="False" />
-  <preference name="ShowTitle" value="True" />
-  <preference name="InAppBrowserStorageEnabled" value="False" />
-  <preference name="SuppressesIncrementalRendering" value="True" />
+  <preference name="KeepRunning" value="True" />
+  <preference name="ShowTitle" value="False" />
+  <preference name="InAppBrowserStorageEnabled" value="True" />
+  <preference name="SuppressesIncrementalRendering" value="False" />
   <vs:plugin name="cordova-plugin-geolocation" version="1.0.1" />
   <vs:plugin name="com.pushbots.push" version="1.2.8" src="https://github.com/pushbots/phonegap" />
   <vs:plugin name="cordova-plugin-device" version="1.0.1" />
   <vs:plugin name="cordova-plugin-whitelist" version="1.2.0" />
-  <access origin="http://iazi-com-br.umbler.net" />
   <preference name="Fullscreen" value="False" />
+  <vs:plugin name="cordova-plugin-dialogs" version="1.2.0" />
 </widget>

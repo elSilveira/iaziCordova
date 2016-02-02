@@ -142,7 +142,7 @@ function getToken(open) {
         localStorage.setItem('iaziToken', JSON.stringify(data));
         if (usuarioToken.roleUsuario != 'user') {
             var emp = JSON.parse(localStorage.getItem('iaziEmpresaCliente'));
-            if(emp != null || emp.idEmpresa == null)
+            if(emp == null || emp.length == 0)
                 getEmpresa();
             else {
                 window.open("Home.html", "_self");
@@ -152,7 +152,6 @@ function getToken(open) {
     }).error(function () {
         // localStorage.removeItem("iaziUser");
         //testarCliente();
-        alert("erro token");
     });
 }
 

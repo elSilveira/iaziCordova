@@ -62,7 +62,7 @@ function getEmpresas(idCategoria) {
         type: 'POST',
         url: localStorage['iaziUrl'] + 'empresas/listEmpresas',
         contentType: 'application/json',
-        data: JSON.stringify({ idUsuario: usuario.idUsuario, idCategoria: idCategoria }),
+        data: JSON.stringify({ cidadeCliente: usuario.cliente.cidadeCliente, estadoCliente: usuario.cliente.estadoCliente, idCategoria: idCategoria }),
         headers: {
             'Authorization': 'Bearer ' + token.access_token
         }
@@ -198,7 +198,7 @@ function getFuncionarios(data) {
         contentType: 'application/json',
         data: JSON.stringify({ servicos: data }),
         headers: {
-            'Authorization': 'Bearer ' + usuario.tokenUsuario.access_token
+            'Authorization': 'Bearer ' + token.access_token
         }
     })
         .success(function (data) {
